@@ -1,0 +1,43 @@
+public final class io/getstream/android/push/BuildConfig {
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class io/getstream/android/push/PushDevice {
+	public fun <init> (Ljava/lang/String;Lio/getstream/android/push/PushProvider;Ljava/lang/String;)V
+	public final fun component1 ()Ljava/lang/String;
+	public final fun component2 ()Lio/getstream/android/push/PushProvider;
+	public final fun component3 ()Ljava/lang/String;
+	public final fun copy (Ljava/lang/String;Lio/getstream/android/push/PushProvider;Ljava/lang/String;)Lio/getstream/android/push/PushDevice;
+	public static synthetic fun copy$default (Lio/getstream/android/push/PushDevice;Ljava/lang/String;Lio/getstream/android/push/PushProvider;Ljava/lang/String;ILjava/lang/Object;)Lio/getstream/android/push/PushDevice;
+	public fun equals (Ljava/lang/Object;)Z
+	public final fun getProviderName ()Ljava/lang/String;
+	public final fun getPushProvider ()Lio/getstream/android/push/PushProvider;
+	public final fun getToken ()Ljava/lang/String;
+	public fun hashCode ()I
+	public fun toString ()Ljava/lang/String;
+}
+
+public abstract interface class io/getstream/android/push/PushDeviceGenerator {
+	public abstract fun asyncGeneratePushDevice (Lkotlin/jvm/functions/Function1;)V
+	public abstract fun isValidForThisDevice (Landroid/content/Context;)Z
+	public abstract fun onPushDeviceGeneratorSelected ()V
+}
+
+public final class io/getstream/android/push/PushProvider : java/lang/Enum {
+	public static final field Companion Lio/getstream/android/push/PushProvider$Companion;
+	public static final field FIREBASE Lio/getstream/android/push/PushProvider;
+	public static final field HUAWEI Lio/getstream/android/push/PushProvider;
+	public static final field UNKNOWN Lio/getstream/android/push/PushProvider;
+	public static final field XIAOMI Lio/getstream/android/push/PushProvider;
+	public final fun getKey ()Ljava/lang/String;
+	public static fun valueOf (Ljava/lang/String;)Lio/getstream/android/push/PushProvider;
+	public static fun values ()[Lio/getstream/android/push/PushProvider;
+}
+
+public final class io/getstream/android/push/PushProvider$Companion {
+	public final fun fromKey (Ljava/lang/String;)Lio/getstream/android/push/PushProvider;
+}
+
