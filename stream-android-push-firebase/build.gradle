@@ -7,7 +7,7 @@ apply plugin: "de.mannodermaus.android-junit5"
 
 ext {
     PUBLISH_GROUP_ID = Configuration.artifactGroup
-    PUBLISH_ARTIFACT_ID = 'stream-android-pushprovider-firebase'
+    PUBLISH_ARTIFACT_ID = 'stream-android-push-firebase'
     PUBLISH_VERSION = rootVersionName
 }
 
