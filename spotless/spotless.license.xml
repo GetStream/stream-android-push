@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-    Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
+    Copyright (c) 2014-$YEAR Stream.io Inc. All rights reserved.
 
     Licensed under the Stream License;
     you may not use this file except in compliance with the License.
@@ -14,7 +14,3 @@
     See the License for the specific language governing permissions and
     limitations under the License.
 -->
-<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
-    <background android:drawable="@drawable/ic_launcher_background" />
-    <foreground android:drawable="@drawable/ic_launcher_foreground" />
-</adaptive-icon>
