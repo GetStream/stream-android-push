@@ -16,3 +16,4 @@ rootProject.name = "Push"
 include ':app'
 include ':stream-android-push'
 include ':stream-android-push-delegate'
+include ':stream-android-push-firebase'
