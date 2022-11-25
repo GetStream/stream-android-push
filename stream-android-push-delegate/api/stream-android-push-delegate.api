@@ -1,0 +1,27 @@
+public final class io/getstream/android/push/delegate/BuildConfig {
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public abstract interface class io/getstream/android/push/delegate/PushDelegate {
+	public abstract fun handlePushMessage (Ljava/util/Map;)Z
+	public abstract fun registerPushDevice (Lio/getstream/android/push/PushDevice;)V
+}
+
+public final class io/getstream/android/push/delegate/PushDelegateProvider : android/content/ContentProvider {
+	public static final field Companion Lio/getstream/android/push/delegate/PushDelegateProvider$Companion;
+	public fun <init> ()V
+	public fun delete (Landroid/net/Uri;Ljava/lang/String;[Ljava/lang/String;)I
+	public fun getType (Landroid/net/Uri;)Ljava/lang/String;
+	public fun insert (Landroid/net/Uri;Landroid/content/ContentValues;)Landroid/net/Uri;
+	public fun onCreate ()Z
+	public fun query (Landroid/net/Uri;[Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;Ljava/lang/String;)Landroid/database/Cursor;
+	public fun update (Landroid/net/Uri;Landroid/content/ContentValues;Ljava/lang/String;[Ljava/lang/String;)I
+}
+
+public final class io/getstream/android/push/delegate/PushDelegateProvider$Companion {
+	public final fun getDelegates ()Ljava/util/List;
+}
+
