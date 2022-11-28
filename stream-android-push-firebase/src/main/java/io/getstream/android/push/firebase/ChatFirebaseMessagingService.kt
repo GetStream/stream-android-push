@@ -16,18 +16,19 @@
 
 package io.getstream.android.push.firebase
 
-import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import io.getstream.log.StreamLog
 
 internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
+    private val logger = StreamLog.getLogger("Push:Firebase")
 
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        Log.d(TAG, "[onFirebaseMessageReceived] remoteMessage: $remoteMessage")
+        logger.d { "[onFirebaseMessageReceived] remoteMessage: $remoteMessage" }
         try {
             FirebaseMessagingDelegate.handleRemoteMessage(remoteMessage)
         } catch (exception: IllegalStateException) {
-            Log.e(TAG, "[onFirebaseMessageReceived] error while handling remote message", exception)
+            logger.e(exception) { "[onFirebaseMessageReceived] error while handling remote message" }
         } finally {
             stopSelf()
         }
@@ -37,11 +38,7 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
         try {
             FirebaseMessagingDelegate.registerFirebaseToken(token)
         } catch (exception: IllegalStateException) {
-            Log.e(TAG, "[onFirebaseNewToken] error while registering Firebase Token", exception)
+            logger.e(exception) { "[onFirebaseNewToken] error while registering Firebase Token" }
         }
-    }
-
-    companion object {
-        private const val TAG = "Push:Firebase"
     }
 }

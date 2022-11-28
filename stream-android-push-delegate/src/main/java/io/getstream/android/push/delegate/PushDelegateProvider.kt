@@ -24,9 +24,10 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import io.getstream.log.StreamLog
 
 public class PushDelegateProvider : ContentProvider() {
+    private val logger = StreamLog.getLogger("Push:Delegate")
     override fun onCreate(): Boolean {
         initializeDelegates()
         return true
@@ -63,7 +64,7 @@ public class PushDelegateProvider : ContentProvider() {
                 ?.getDeclaredConstructor()
                 ?.newInstance() as? PushDelegate
         } catch (e: ClassNotFoundException) {
-            Log.e(TAG, "PushDelegate not created from '$this'", e)
+            logger.e(e) { "PushDelegate not created from '$this'" }
             null
         }
 
@@ -106,7 +107,6 @@ public class PushDelegateProvider : ContentProvider() {
         @Volatile
         private var isInitialized = false
         private const val METADATA_VALUE = "io.getstream.android.push.PushDelegate"
-        private const val TAG = "Push"
         private var _delegates: List<PushDelegate> = emptyList()
         public val delegates: List<PushDelegate>
             get() = _delegates

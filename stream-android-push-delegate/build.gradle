@@ -51,6 +51,7 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 dependencies {
 
     api project(':stream-android-push')
+    implementation Dependencies.streamLog
     // Tests
     testImplementation Dependencies.androidxTestJunit
     testImplementation Dependencies.junitJupiterApi

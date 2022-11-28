@@ -17,13 +17,13 @@
 package io.getstream.android.push.huawei
 
 import android.content.Context
-import android.util.Log
 import com.huawei.hms.aaid.HmsInstanceId
 import com.huawei.hms.api.ConnectionResult.SUCCESS
 import com.huawei.hms.api.HuaweiApiAvailability
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushDeviceGenerator
 import io.getstream.android.push.PushProvider
+import io.getstream.log.StreamLog
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -37,11 +37,12 @@ public class HuaweiPushDeviceGenerator(
     private val appId: String,
     private val providerName: String? = null
 ) : PushDeviceGenerator {
+    private val logger = StreamLog.getLogger("Push:Huawei")
     private val hmsInstanceId: HmsInstanceId = HmsInstanceId.getInstance(context)
 
     override fun isValidForThisDevice(context: Context): Boolean =
         (HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(context) == SUCCESS).also {
-            Log.i(TAG, "Is Huawei available on on this device -> $it")
+            logger.i { "Is Huawei available on on this device -> $it" }
         }
 
     override fun onPushDeviceGeneratorSelected() {
@@ -49,14 +50,14 @@ public class HuaweiPushDeviceGenerator(
     }
 
     override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
-        Log.i(TAG, "Getting Huawei token")
+        logger.i { "Getting Huawei token" }
 
         @OptIn(DelicateCoroutinesApi::class)
         GlobalScope.launch(Dispatchers.IO) {
             hmsInstanceId.getToken(appId, "HCM")
                 .takeUnless { it.isNullOrBlank() }
                 ?.run {
-                    Log.i(TAG, "Huawei returned token successfully")
+                    logger.i { "Huawei returned token successfully" }
                     onPushDeviceGenerated(
                         PushDevice(
                             token = this,
@@ -65,11 +66,7 @@ public class HuaweiPushDeviceGenerator(
                         )
                     )
                 }
-                ?: Log.i(TAG, "Error: Huawei didn't returned token")
+                ?: logger.i { "Error: Huawei didn't returned token" }
         }
-    }
-
-    private companion object {
-        private const val TAG = "Push:Huawei"
     }
 }

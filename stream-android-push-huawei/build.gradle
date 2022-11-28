@@ -54,6 +54,7 @@ dependencies {
 
     api project(':stream-android-push')
     api project(':stream-android-push-delegate')
+    implementation Dependencies.streamLog
     implementation Dependencies.huaweiPush
     implementation Dependencies.coroutinesCore
 
