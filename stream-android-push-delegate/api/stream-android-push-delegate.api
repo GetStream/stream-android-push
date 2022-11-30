@@ -5,7 +5,9 @@ public final class io/getstream/android/push/delegate/BuildConfig {
 	public fun <init> ()V
 }
 
-public abstract interface class io/getstream/android/push/delegate/PushDelegate {
+public abstract class io/getstream/android/push/delegate/PushDelegate {
+	public fun <init> (Landroid/content/Context;)V
+	public final fun getContext ()Landroid/content/Context;
 	public abstract fun handlePushMessage (Ljava/util/Map;)Z
 	public abstract fun registerPushDevice (Lio/getstream/android/push/PushDevice;)V
 }
