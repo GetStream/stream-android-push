@@ -50,21 +50,24 @@ public class PushDelegateProvider : ContentProvider() {
         discoverDelegates(providerInfo.metaData)
     }
 
-    private fun discoverDelegates(metadata: Bundle) {
+    private fun Context.discoverDelegates(metadata: Bundle) {
         _delegates = metadata
             .keySet()
             .filter { metadata.getString(it) == METADATA_VALUE }
-            .mapNotNull { it.toPushDelegate() }
+            .mapNotNull { it.toPushDelegate(this) }
     }
 
-    private fun String.toPushDelegate(): PushDelegate? =
+    private fun String.toPushDelegate(context: Context): PushDelegate? =
         try {
             Class.forName(this)
                 .takeIf { PushDelegate::class.java.isAssignableFrom(it) }
-                ?.getDeclaredConstructor()
-                ?.newInstance() as? PushDelegate
+                ?.getDeclaredConstructor(Context::class.java)
+                ?.newInstance(context) as? PushDelegate
         } catch (e: ClassNotFoundException) {
-            logger.e(e) { "PushDelegate not created from '$this'" }
+            logger.e(e) { "PushDelegate not created for '$this'" }
+            null
+        } catch (e: NoSuchMethodException) {
+            logger.e(e) { "PushDelegate not created for '$this'" }
             null
         }
 

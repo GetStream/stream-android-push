@@ -15,9 +15,10 @@
  */
 
 package io.getstream.android.push.delegate
+import android.content.Context
 import io.getstream.android.push.PushDevice
 
-public interface PushDelegate {
+public abstract class PushDelegate(public val context: Context) {
 
     /**
      * Handles push message payload.
@@ -27,12 +28,12 @@ public interface PushDelegate {
      * @param payload The payload to be handled.
      * @return True if the payload was handled.
      */
-    public fun handlePushMessage(payload: Map<String, Any?>): Boolean
+    public abstract fun handlePushMessage(payload: Map<String, Any?>): Boolean
 
     /**
      * Register a new [PushDevice]
      *
      * @param pushDevice The PushDevice to be registered.
      */
-    public fun registerPushDevice(pushDevice: PushDevice)
+    public abstract fun registerPushDevice(pushDevice: PushDevice)
 }
