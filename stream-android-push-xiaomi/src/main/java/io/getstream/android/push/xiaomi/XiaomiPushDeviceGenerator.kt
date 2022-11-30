@@ -17,12 +17,12 @@
 package io.getstream.android.push.xiaomi
 
 import android.content.Context
-import android.util.Log
 import com.xiaomi.channel.commonutils.android.Region
 import com.xiaomi.mipush.sdk.MiPushClient
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushDeviceGenerator
 import io.getstream.android.push.PushProvider
+import io.getstream.log.StreamLog
 import java.util.concurrent.atomic.AtomicBoolean
 
 /**
@@ -40,6 +40,7 @@ public class XiaomiPushDeviceGenerator(
     private val providerName: String? = null,
     private val region: Region = Region.Global,
 ) : PushDeviceGenerator {
+    private val logger = StreamLog.getLogger("Push:Xiaomi")
     private val appContext = context.applicationContext
     private var isAlreadyRegistered = AtomicBoolean(false)
 
@@ -50,7 +51,7 @@ public class XiaomiPushDeviceGenerator(
     }
 
     override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
-        Log.i(TAG, "Getting Xiaomi token")
+        logger.i { "Getting Xiaomi token" }
         if (isAlreadyRegistered.compareAndSet(false, true)) {
             MiPushClient.setRegion(region)
             MiPushClient.registerPush(appContext, appId, appKey)
@@ -59,9 +60,5 @@ public class XiaomiPushDeviceGenerator(
                 onPushDeviceGenerated(PushDevice(it, PushProvider.XIAOMI, providerName))
             }
         }
-    }
-
-    private companion object {
-        private const val TAG = "Push:Xiaomi"
     }
 }

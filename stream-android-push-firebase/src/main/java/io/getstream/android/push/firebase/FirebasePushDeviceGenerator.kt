@@ -17,13 +17,13 @@
 package io.getstream.android.push.firebase
 
 import android.content.Context
-import android.util.Log
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.firebase.messaging.FirebaseMessaging
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushDeviceGenerator
 import io.getstream.android.push.PushProvider
+import io.getstream.log.StreamLog
 
 /**
  * Generator responsible for providing information needed to register Firebase push notifications provider
@@ -32,10 +32,11 @@ public class FirebasePushDeviceGenerator(
     private val firebaseMessaging: FirebaseMessaging = FirebaseMessaging.getInstance(),
     private val providerName: String? = null,
 ) : PushDeviceGenerator {
+    private val logger = StreamLog.getLogger("Push:Firebase")
 
     override fun isValidForThisDevice(context: Context): Boolean =
         (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS).also {
-            Log.i(TAG, "Is Firebase available on on this device -> $it")
+            logger.i { "Is Firebase available on on this device -> $it" }
         }
 
     override fun onPushDeviceGeneratorSelected() {
@@ -43,10 +44,10 @@ public class FirebasePushDeviceGenerator(
     }
 
     override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
-        Log.i(TAG, "Getting Firebase token")
+        logger.i { "Getting Firebase token" }
         firebaseMessaging.token.addOnCompleteListener {
             if (it.isSuccessful) {
-                Log.i(TAG, "Firebase returned token successfully")
+                logger.i { "Firebase returned token successfully" }
                 onPushDeviceGenerated(
                     PushDevice(
                         token = it.result,
@@ -55,12 +56,8 @@ public class FirebasePushDeviceGenerator(
                     )
                 )
             } else {
-                Log.i(TAG, "Error: Firebase didn't returned token")
+                logger.i { "Error: Firebase didn't returned token" }
             }
         }
-    }
-
-    private companion object {
-        private const val TAG = "Push:Firebase"
     }
 }

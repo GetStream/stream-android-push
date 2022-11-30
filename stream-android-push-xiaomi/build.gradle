@@ -55,6 +55,7 @@ dependencies {
     api project(':stream-android-push')
     api project(':stream-android-push-delegate')
     implementation Dependencies.moshiKotlin
+    implementation Dependencies.streamLog
     compileOnly files('libs/MiPush_SDK_Client_5_1_1-G_3rd.aar')
 
     detektPlugins(Dependencies.detektFormatting)
