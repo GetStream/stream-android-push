@@ -38,5 +38,9 @@ android {
 dependencies {
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.materialComponents
+
+    testImplementation Dependencies.junit4
+    androidTestImplementation Dependencies.androidxTestJunit
+    androidTestImplementation Dependencies.espressoCore
     detektPlugins(Dependencies.detektFormatting)
 }
