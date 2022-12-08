@@ -49,7 +49,6 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 }
 
 dependencies {
-
     // Tests
     testImplementation Dependencies.androidxTestJunit
     testImplementation Dependencies.junitJupiterApi
