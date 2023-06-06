@@ -1,0 +1,21 @@
+public final class io/getstream/android/push/permissions/snackbar/BuildConfig {
+	public static final field BUILD_TYPE Ljava/lang/String;
+	public static final field DEBUG Z
+	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
+	public fun <init> ()V
+}
+
+public final class io/getstream/android/push/permissions/snackbar/SnackbarNotificationPermissionHandler : io/getstream/android/push/permissions/ActivityLifecycleCallbacks, io/getstream/android/push/permissions/NotificationPermissionHandler {
+	public static final field Companion Lio/getstream/android/push/permissions/snackbar/SnackbarNotificationPermissionHandler$Companion;
+	public fun onActivityStarted (Landroid/app/Activity;)V
+	public fun onLastActivityStopped (Landroid/app/Activity;)V
+	public fun onPermissionDenied ()V
+	public fun onPermissionGranted ()V
+	public fun onPermissionRationale ()V
+	public fun onPermissionRequested ()V
+}
+
+public final class io/getstream/android/push/permissions/snackbar/SnackbarNotificationPermissionHandler$Companion {
+	public final fun createSnackbarNotificationPermissionHandler (Landroid/app/Application;)Lio/getstream/android/push/permissions/snackbar/SnackbarNotificationPermissionHandler;
+}
+
