@@ -5,6 +5,7 @@ package io.getstream.android.push
 object Versions {
     internal const val ANDROID_GRADLE_PLUGIN = "7.4.0"
     internal const val ANDROID_JUNIT5_GRADLE_PLUGIN = "1.9.3.0"
+    internal const val ANDROIDX_ACTIVITY_KTX = "1.7.2"
     internal const val ANDROIDX_ACTIVITY_COMPOSE = "1.6.1"
     internal const val ANDROIDX_ANNOTATIONS = "1.5.0"
     internal const val ANDROIDX_COMPOSE = "1.3.1"
@@ -44,6 +45,7 @@ object Dependencies {
     const val androidJunit5GradlePlugin =
         "de.mannodermaus.gradle.plugins:android-junit5:${Versions.ANDROID_JUNIT5_GRADLE_PLUGIN}"
     const val androidxAnnotations = "androidx.annotation:annotation:${Versions.ANDROIDX_ANNOTATIONS}"
+    const val androidxActivityKtx = "androidx.activity:activity-ktx:${Versions.ANDROIDX_ACTIVITY_KTX}"
     const val androidxCoreKtx = "androidx.core:core-ktx:${Versions.ANDROIDX_KTX}"
     const val androidxTestJunit = "androidx.test.ext:junit:${Versions.ANDROIDX_TEST_JUNIT}"
     const val composeRuntime = "androidx.compose.runtime:runtime:${Versions.ANDROIDX_COMPOSE}"
