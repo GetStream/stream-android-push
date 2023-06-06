@@ -3,7 +3,7 @@
 package io.getstream.android.push
 
 object Versions {
-    internal const val ANDROID_GRADLE_PLUGIN = "7.3.1"
+    internal const val ANDROID_GRADLE_PLUGIN = "7.4.0"
     internal const val ANDROID_JUNIT5_GRADLE_PLUGIN = "1.9.3.0"
     internal const val ANDROIDX_ACTIVITY_COMPOSE = "1.6.1"
     internal const val ANDROIDX_ANNOTATIONS = "1.5.0"
