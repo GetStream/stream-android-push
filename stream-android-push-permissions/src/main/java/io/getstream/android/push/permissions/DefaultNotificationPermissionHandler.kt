@@ -42,10 +42,16 @@ public class DefaultNotificationPermissionHandler private constructor() : Notifi
         currentActivity = null
     }
 
+    override fun onPermissionRequested() { /* no-op */ }
+
+    override fun onPermissionGranted() { /* no-op */ }
+
     override fun onPermissionDenied() {
         logger.i { "[onPermissionDenied] currentActivity: $currentActivity" }
         currentActivity?.showNotificationBlocked()
     }
+
+    override fun onPermissionRationale() { /* no-op */ }
 
     private fun Activity.showNotificationBlocked() {
         Toast.makeText(

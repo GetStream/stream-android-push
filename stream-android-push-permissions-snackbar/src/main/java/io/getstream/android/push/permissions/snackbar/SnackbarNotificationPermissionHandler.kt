@@ -49,10 +49,16 @@ public class SnackbarNotificationPermissionHandler private constructor() : Notif
         currentActivity = null
     }
 
+    override fun onPermissionRequested() { /* no-op */ }
+
+    override fun onPermissionGranted() { /* no-op */ }
+
     override fun onPermissionDenied() {
         logger.i { "[onPermissionDenied] currentActivity: $currentActivity" }
         currentActivity?.showNotificationBlocked()
     }
+
+    override fun onPermissionRationale() { /* no-op */ }
 
     private fun Activity.showNotificationBlocked() {
         val contentLayout = findViewById<ViewGroup>(android.R.id.content)

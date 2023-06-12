@@ -39,13 +39,6 @@ public abstract interface class io/getstream/android/push/permissions/Notificati
 	public abstract fun onPermissionRequested ()V
 }
 
-public final class io/getstream/android/push/permissions/NotificationPermissionHandler$DefaultImpls {
-	public static fun onPermissionDenied (Lio/getstream/android/push/permissions/NotificationPermissionHandler;)V
-	public static fun onPermissionGranted (Lio/getstream/android/push/permissions/NotificationPermissionHandler;)V
-	public static fun onPermissionRationale (Lio/getstream/android/push/permissions/NotificationPermissionHandler;)V
-	public static fun onPermissionRequested (Lio/getstream/android/push/permissions/NotificationPermissionHandler;)V
-}
-
 public final class io/getstream/android/push/permissions/NotificationPermissionManager : io/getstream/android/push/permissions/ActivityLifecycleCallbacks {
 	public static final field Companion Lio/getstream/android/push/permissions/NotificationPermissionManager$Companion;
 	public synthetic fun <init> (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/internal/DefaultConstructorMarker;)V

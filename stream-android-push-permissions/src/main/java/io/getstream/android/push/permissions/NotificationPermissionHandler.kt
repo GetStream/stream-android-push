@@ -24,20 +24,20 @@ public interface NotificationPermissionHandler {
     /**
      * Invoked when permission is requested.
      */
-    public fun onPermissionRequested() { /* no-op */ }
+    public fun onPermissionRequested()
 
     /**
      * Invoked when permission is granted.
      */
-    public fun onPermissionGranted() { /* no-op */ }
+    public fun onPermissionGranted()
 
     /**
      * Invoked when permission is denied.
      */
-    public fun onPermissionDenied() { /* no-op */ }
+    public fun onPermissionDenied()
 
     /**
      * Invoked when permission rationale is required.
      */
-    public fun onPermissionRationale() { /* no-op */ }
+    public fun onPermissionRationale()
 }
