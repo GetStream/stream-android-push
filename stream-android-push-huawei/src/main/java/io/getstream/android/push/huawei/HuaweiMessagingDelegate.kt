@@ -27,7 +27,7 @@ import kotlin.jvm.Throws
  */
 public object HuaweiMessagingDelegate {
 
-    internal var fallbackProviderName: String? = null
+    internal lateinit var fallbackProviderName: String
 
     /**
      * Handles [remoteMessage] from Huawei.
@@ -53,7 +53,7 @@ public object HuaweiMessagingDelegate {
     @JvmStatic
     public fun registerHuaweiToken(
         token: String,
-        providerName: String? = fallbackProviderName,
+        providerName: String = fallbackProviderName,
     ) {
         val pushDevice = PushDevice(
             token = token,

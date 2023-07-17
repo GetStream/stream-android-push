@@ -30,14 +30,14 @@ import java.util.concurrent.atomic.AtomicBoolean
  *
  * @property appId The App ID for the app registered on Xiaomi Developer Console.
  * @property appKey The App Key for the app registered on Xiaomi Developer Console.
- * @property providerName Optional name for the provider name.
+ * @property providerName Name for the provider name.
  * @property region Computer area to be used by Xiaomi SDK.
  */
 public class XiaomiPushDeviceGenerator(
     context: Context,
     private val appId: String,
     private val appKey: String,
-    private val providerName: String? = null,
+    private val providerName: String,
     private val region: Region = Region.Global,
 ) : PushDeviceGenerator {
     private val logger = StreamLog.getLogger("Push:Xiaomi")

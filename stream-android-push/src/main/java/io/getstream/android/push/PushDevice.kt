@@ -27,5 +27,5 @@ package io.getstream.android.push
 public data class PushDevice(
     val token: String,
     val pushProvider: PushProvider,
-    val providerName: String?,
+    val providerName: String,
 )

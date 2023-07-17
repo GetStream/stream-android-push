@@ -31,7 +31,7 @@ import io.getstream.android.push.delegate.PushDelegateProvider
  */
 public object XiaomiMessagingDelegate {
 
-    internal var fallbackProviderName: String? = null
+    internal lateinit var fallbackProviderName: String
 
     private val mapAdapter: JsonAdapter<MutableMap<String, String>> by lazy {
         Moshi.Builder()
@@ -61,7 +61,7 @@ public object XiaomiMessagingDelegate {
     @JvmStatic
     public fun registerXiaomiToken(
         miPushCommandMessage: MiPushCommandMessage,
-        providerName: String? = fallbackProviderName,
+        providerName: String = fallbackProviderName,
     ) {
         miPushCommandMessage
             .takeIf { it.command == MiPushClient.COMMAND_REGISTER }

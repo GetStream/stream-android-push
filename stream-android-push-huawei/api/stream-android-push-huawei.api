@@ -14,7 +14,6 @@ public final class io/getstream/android/push/huawei/HuaweiMessagingDelegate {
 
 public final class io/getstream/android/push/huawei/HuaweiPushDeviceGenerator : io/getstream/android/push/PushDeviceGenerator {
 	public fun <init> (Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;)V
-	public synthetic fun <init> (Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun asyncGeneratePushDevice (Lkotlin/jvm/functions/Function1;)V
 	public fun isValidForThisDevice (Landroid/content/Context;)Z
 	public fun onPushDeviceGeneratorSelected ()V

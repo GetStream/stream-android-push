@@ -35,7 +35,7 @@ import kotlinx.coroutines.launch
 public class HuaweiPushDeviceGenerator(
     context: Context,
     private val appId: String,
-    private val providerName: String? = null
+    private val providerName: String,
 ) : PushDeviceGenerator {
     private val logger = StreamLog.getLogger("Push:Huawei")
     private val hmsInstanceId: HmsInstanceId = HmsInstanceId.getInstance(context)

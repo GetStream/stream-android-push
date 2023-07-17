@@ -14,7 +14,6 @@ public final class io/getstream/android/push/firebase/FirebaseMessagingDelegate 
 }
 
 public final class io/getstream/android/push/firebase/FirebasePushDeviceGenerator : io/getstream/android/push/PushDeviceGenerator {
-	public fun <init> ()V
 	public fun <init> (Lcom/google/firebase/messaging/FirebaseMessaging;Ljava/lang/String;)V
 	public synthetic fun <init> (Lcom/google/firebase/messaging/FirebaseMessaging;Ljava/lang/String;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public fun asyncGeneratePushDevice (Lkotlin/jvm/functions/Function1;)V
