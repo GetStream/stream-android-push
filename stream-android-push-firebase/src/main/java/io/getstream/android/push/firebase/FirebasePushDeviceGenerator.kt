@@ -28,7 +28,7 @@ import io.getstream.log.StreamLog
 /**
  * Generator responsible for providing information needed to register Firebase push notifications provider
  */
-public class FirebasePushDeviceGenerator(
+public class FirebasePushDeviceGenerator @JvmOverloads constructor(
     private val firebaseMessaging: FirebaseMessaging = FirebaseMessaging.getInstance(),
     private val providerName: String,
 ) : PushDeviceGenerator {
