@@ -26,7 +26,7 @@ import io.getstream.android.push.delegate.PushDelegateProvider
  */
 public object FirebaseMessagingDelegate {
 
-    internal lateinit var fallbackProviderName: String
+    internal var fallbackProviderName: String? = null
 
     /**
      * Handles [remoteMessage] from Firebase.
@@ -45,18 +45,23 @@ public object FirebaseMessagingDelegate {
      * Register new Firebase Token.
      *
      * @param token provided by Firebase.
-     * @param providerName Optional name for the provider name.
+     * @param providerName The provider name.
      */
     @JvmStatic
     public fun registerFirebaseToken(
         token: String,
-        providerName: String = fallbackProviderName,
+        providerName: String,
     ) {
-        val pushDevice = PushDevice(
-            token = token,
-            pushProvider = PushProvider.FIREBASE,
-            providerName = providerName,
-        )
-        PushDelegateProvider.delegates.forEach { it.registerPushDevice(pushDevice) }
+        (providerName.takeUnless { it.isBlank() } ?: fallbackProviderName)
+            ?.let {
+                PushDevice(
+                    token = token,
+                    pushProvider = PushProvider.FIREBASE,
+                    providerName = it,
+                )
+            }
+            ?.let {
+                PushDelegateProvider.delegates.forEach { delegate -> delegate.registerPushDevice(it) }
+            }
     }
 }

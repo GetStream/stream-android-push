@@ -31,7 +31,7 @@ import io.getstream.android.push.delegate.PushDelegateProvider
  */
 public object XiaomiMessagingDelegate {
 
-    internal lateinit var fallbackProviderName: String
+    internal var fallbackProviderName: String? = null
 
     private val mapAdapter: JsonAdapter<MutableMap<String, String>> by lazy {
         Moshi.Builder()
@@ -56,24 +56,29 @@ public object XiaomiMessagingDelegate {
      * Register new Xiaomi Token.
      *
      * @param miPushCommandMessage provided by Xiaomi.
-     * @param providerName Optional name for the provider name.
+     * @param providerName The provider name.
      */
     @JvmStatic
     public fun registerXiaomiToken(
         miPushCommandMessage: MiPushCommandMessage,
-        providerName: String = fallbackProviderName,
+        providerName: String,
     ) {
         miPushCommandMessage
             .takeIf { it.command == MiPushClient.COMMAND_REGISTER }
             ?.commandArguments
             ?.get(0)
             ?.run {
-                val pushDevice = PushDevice(
-                    token = this,
-                    pushProvider = PushProvider.XIAOMI,
-                    providerName = providerName,
-                )
-                PushDelegateProvider.delegates.forEach { it.registerPushDevice(pushDevice) }
+                (providerName.takeUnless { it.isBlank() } ?: fallbackProviderName)
+                    ?.let {
+                        PushDevice(
+                            token = this,
+                            pushProvider = PushProvider.XIAOMI,
+                            providerName = it,
+                        )
+                    }
+                    ?.let {
+                        PushDelegateProvider.delegates.forEach { delegate -> delegate.registerPushDevice(it) }
+                    }
             }
     }
 

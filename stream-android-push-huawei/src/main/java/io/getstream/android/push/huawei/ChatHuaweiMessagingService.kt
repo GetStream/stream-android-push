@@ -36,7 +36,7 @@ internal class ChatHuaweiMessagingService : HmsMessageService() {
 
     override fun onNewToken(token: String) {
         try {
-            HuaweiMessagingDelegate.registerHuaweiToken(token)
+            HuaweiMessagingDelegate.registerHuaweiToken(token, "")
         } catch (exception: IllegalStateException) {
             logger.e(exception) { "[onHuaweiNewToken] error while registering Huawei Token" }
         }

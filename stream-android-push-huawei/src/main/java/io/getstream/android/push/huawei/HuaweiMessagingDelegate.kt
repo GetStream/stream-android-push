@@ -27,7 +27,7 @@ import kotlin.jvm.Throws
  */
 public object HuaweiMessagingDelegate {
 
-    internal lateinit var fallbackProviderName: String
+    internal var fallbackProviderName: String? = null
 
     /**
      * Handles [remoteMessage] from Huawei.
@@ -47,19 +47,24 @@ public object HuaweiMessagingDelegate {
      * Register new Huawei Token.
      *
      * @param token provided by Huawei.
-     * @param providerName Optional name for the provider name.
+     * @param providerName The provider name.
      */
     @Throws(IllegalStateException::class)
     @JvmStatic
     public fun registerHuaweiToken(
         token: String,
-        providerName: String = fallbackProviderName,
+        providerName: String,
     ) {
-        val pushDevice = PushDevice(
-            token = token,
-            pushProvider = PushProvider.HUAWEI,
-            providerName = providerName,
-        )
-        PushDelegateProvider.delegates.forEach { it.registerPushDevice(pushDevice) }
+        (providerName.takeUnless { it.isBlank() } ?: fallbackProviderName)
+            ?.let {
+                PushDevice(
+                    token = token,
+                    pushProvider = PushProvider.HUAWEI,
+                    providerName = it,
+                )
+            }
+            ?.let {
+                PushDelegateProvider.delegates.forEach { delegate -> delegate.registerPushDevice(it) }
+            }
     }
 }

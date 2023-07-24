@@ -10,7 +10,6 @@ public final class io/getstream/android/push/firebase/FirebaseMessagingDelegate 
 	public static final field INSTANCE Lio/getstream/android/push/firebase/FirebaseMessagingDelegate;
 	public static final fun handleRemoteMessage (Lcom/google/firebase/messaging/RemoteMessage;)Z
 	public static final fun registerFirebaseToken (Ljava/lang/String;Ljava/lang/String;)V
-	public static synthetic fun registerFirebaseToken$default (Ljava/lang/String;Ljava/lang/String;ILjava/lang/Object;)V
 }
 
 public final class io/getstream/android/push/firebase/FirebasePushDeviceGenerator : io/getstream/android/push/PushDeviceGenerator {
