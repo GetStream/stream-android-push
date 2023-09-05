@@ -25,10 +25,11 @@ public abstract class PushDelegate(public val context: Context) {
      * If the payload can't be handled because doesn't contain the needed data, return false to notify you this
      * push message payload needs to be handled by you.
      *
+     * @param metadata The metadata of a remote message.
      * @param payload The payload to be handled.
      * @return True if the payload was handled.
      */
-    public abstract fun handlePushMessage(payload: Map<String, Any?>): Boolean
+    public abstract fun handlePushMessage(metadata: Map<String, Any?>, payload: Map<String, Any?>): Boolean
 
     /**
      * Register a new [PushDevice]

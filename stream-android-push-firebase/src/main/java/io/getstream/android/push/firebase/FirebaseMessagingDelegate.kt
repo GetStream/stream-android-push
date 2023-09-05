@@ -38,7 +38,12 @@ public object FirebaseMessagingDelegate {
      */
     @JvmStatic
     public fun handleRemoteMessage(remoteMessage: RemoteMessage): Boolean {
-        return PushDelegateProvider.delegates.any { it.handlePushMessage(remoteMessage.data) }
+        return PushDelegateProvider.delegates.any {
+            it.handlePushMessage(
+                metadata = remoteMessage.extractMetadata(),
+                payload = remoteMessage.data,
+            )
+        }
     }
 
     /**
@@ -63,5 +68,20 @@ public object FirebaseMessagingDelegate {
             ?.let {
                 PushDelegateProvider.delegates.forEach { delegate -> delegate.registerPushDevice(it) }
             }
+    }
+
+    private fun RemoteMessage.extractMetadata(): Map<String, Any> {
+        return hashMapOf<String, Any>().apply {
+            senderId?.also { put("firebase.sender_id", it) }
+            from?.also { put("firebase.from", it) }
+            to?.also { put("firebase.to", it) }
+            messageType?.also { put("firebase.message_type", it) }
+            messageId?.also { put("firebase.message_id", it) }
+            collapseKey?.also { put("firebase.collapse_key", it) }
+            put("firebase.sent_time", sentTime)
+            put("firebase.ttl", ttl)
+            put("firebase.priority", priority)
+            put("firebase.priority", originalPriority)
+        }
     }
 }

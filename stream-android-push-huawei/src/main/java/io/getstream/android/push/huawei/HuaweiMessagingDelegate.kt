@@ -40,7 +40,12 @@ public object HuaweiMessagingDelegate {
     @Throws(IllegalStateException::class)
     @JvmStatic
     public fun handleRemoteMessage(remoteMessage: RemoteMessage): Boolean {
-        return PushDelegateProvider.delegates.any { it.handlePushMessage(remoteMessage.dataOfMap) }
+        return PushDelegateProvider.delegates.any {
+            it.handlePushMessage(
+                metadata = remoteMessage.extractMetadata(),
+                payload = remoteMessage.dataOfMap,
+            )
+        }
     }
 
     /**
@@ -66,5 +71,24 @@ public object HuaweiMessagingDelegate {
             ?.let {
                 PushDelegateProvider.delegates.forEach { delegate -> delegate.registerPushDevice(it) }
             }
+    }
+
+    private fun RemoteMessage.extractMetadata(): Map<String, Any> {
+        return hashMapOf<String, Any>().apply {
+            from?.also { put("huawei.from", it) }
+            to?.also { put("huawei.to", it) }
+            messageType?.also { put("huawei.message_type", it) }
+            messageId?.also { put("huawei.message_id", it) }
+            collapseKey?.also { put("huawei.collapse_key", it) }
+            analyticInfoMap?.also { put("huawei.analytic_info_map", it) }
+            token?.also { put("huawei.token", token) }
+            put("huawei.sent_time", sentTime)
+            put("huawei.send_mode", sendMode)
+            put("huawei.receipt_mode", receiptMode)
+            put("huawei.urgency", urgency)
+            put("huawei.original_urgency", originalUrgency)
+            put("huawei.original_urgency", originalUrgency)
+            put("huawei.ttl", ttl)
+        }
     }
 }
