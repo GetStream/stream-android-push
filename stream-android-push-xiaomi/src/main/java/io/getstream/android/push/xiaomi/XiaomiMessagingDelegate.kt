@@ -49,7 +49,12 @@ public object XiaomiMessagingDelegate {
      */
     @JvmStatic
     public fun handleMiPushMessage(miPushMessage: MiPushMessage): Boolean {
-        return PushDelegateProvider.delegates.any { it.handlePushMessage(miPushMessage.contentMap) }
+        return PushDelegateProvider.delegates.any {
+            it.handlePushMessage(
+                metadata = miPushMessage.extractMetadata(),
+                payload = miPushMessage.contentMap,
+            )
+        }
     }
 
     /**
@@ -89,4 +94,23 @@ public object XiaomiMessagingDelegate {
      */
     private val MiPushMessage.contentMap: Map<String, String>
         get() = mapAdapter.fromJson(content) ?: emptyMap()
+
+    private fun MiPushMessage.extractMetadata(): Map<String, Any> {
+        return hashMapOf<String, Any>().apply {
+            put("xiaomi.message_type", messageType)
+            messageId?.also { put("xiaomi.message_id", it) }
+            userAccount?.also { put("xiaomi.user_account", it) }
+            title?.also { put("xiaomi.title", it) }
+            topic?.also { put("xiaomi.topic", it) }
+            alias?.also { put("xiaomi.alias", it) }
+            category?.also { put("xiaomi.category", it) }
+            description?.also { put("xiaomi.description", it) }
+            put("xiaomi.is_arrived_message", isArrivedMessage)
+            put("xiaomi.is_notified", isNotified)
+            put("xiaomi.notify_type", notifyType)
+            put("xiaomi.notify_id", notifyId)
+            put("xiaomi.pass_through", passThrough)
+            put("xiaomi.extra", extra)
+        }
+    }
 }
