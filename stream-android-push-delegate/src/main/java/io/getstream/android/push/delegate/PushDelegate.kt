@@ -19,7 +19,6 @@ import android.content.Context
 import io.getstream.android.push.PushDevice
 
 public abstract class PushDelegate(public val context: Context) {
-
     /**
      * Handles push message payload.
      * If the payload can't be handled because doesn't contain the needed data, return false to notify you this
@@ -29,7 +28,10 @@ public abstract class PushDelegate(public val context: Context) {
      * @param payload The payload to be handled.
      * @return True if the payload was handled.
      */
-    public abstract fun handlePushMessage(metadata: Map<String, Any?>, payload: Map<String, Any?>): Boolean
+    public abstract fun handlePushMessage(
+        metadata: Map<String, Any?>,
+        payload: Map<String, Any?>,
+    ): Boolean
 
     /**
      * Register a new [PushDevice]

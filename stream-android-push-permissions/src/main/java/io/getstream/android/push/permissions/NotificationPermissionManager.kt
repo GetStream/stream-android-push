@@ -39,7 +39,6 @@ public class NotificationPermissionManager private constructor(
     private val requestPermissionOnAppLaunch: () -> Boolean,
     private val onPermissionStatus: (NotificationPermissionStatus) -> Unit,
 ) : ActivityLifecycleCallbacks() {
-
     private val logger by taggedLogger("Chat:Notifications-PM")
 
     private val handler = Handler(Looper.getMainLooper())
@@ -64,7 +63,10 @@ public class NotificationPermissionManager private constructor(
         }
     }
 
-    override fun onActivityCreated(activity: Activity, bunlde: Bundle?) {
+    override fun onActivityCreated(
+        activity: Activity,
+        bunlde: Bundle?,
+    ) {
         logger.v { "[onActivityCreated] activity: $activity" }
         super.onActivityCreated(activity, bunlde)
         currentActivity = activity
@@ -100,13 +102,14 @@ public class NotificationPermissionManager private constructor(
         if (this !is ComponentActivity) return
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
         logger.i { "[registerPermissionCallback] activity: ${this::class.simpleName}" }
-        val launcher = registerForActivityResult(permissionContract) { isGranted: Boolean ->
-            logger.v { "[registerPermissionCallback] completed: $isGranted" }
-            when (isGranted) {
-                true -> onPermissionStatus(NotificationPermissionStatus.GRANTED)
-                else -> onPermissionStatus(NotificationPermissionStatus.DENIED)
+        val launcher =
+            registerForActivityResult(permissionContract) { isGranted: Boolean ->
+                logger.v { "[registerPermissionCallback] completed: $isGranted" }
+                when (isGranted) {
+                    true -> onPermissionStatus(NotificationPermissionStatus.GRANTED)
+                    else -> onPermissionStatus(NotificationPermissionStatus.DENIED)
+                }
             }
-        }
         logger.v { "[registerPermissionCallback] launcher: $launcher" }
         val contentLayout = findViewById<ViewGroup>(android.R.id.content)
         contentLayout.putActivityResultLauncher(launcher)
@@ -141,7 +144,7 @@ public class NotificationPermissionManager private constructor(
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
         when {
             ContextCompat.checkSelfPermission(
-                this, Manifest.permission.POST_NOTIFICATIONS
+                this, Manifest.permission.POST_NOTIFICATIONS,
             ) == PackageManager.PERMISSION_GRANTED -> {
                 logger.v { "[requestPermission] already granted" }
             }
@@ -173,11 +176,12 @@ public class NotificationPermissionManager private constructor(
             application: Application,
             requestPermissionOnAppLaunch: () -> Boolean,
             onPermissionStatus: (NotificationPermissionStatus) -> Unit,
-        ): NotificationPermissionManager = NotificationPermissionManager(
-            requestPermissionOnAppLaunch,
-            onPermissionStatus,
-        ).also {
-            application.registerActivityLifecycleCallbacks(it)
-        }
+        ): NotificationPermissionManager =
+            NotificationPermissionManager(
+                requestPermissionOnAppLaunch,
+                onPermissionStatus,
+            ).also {
+                application.registerActivityLifecycleCallbacks(it)
+            }
     }
 }

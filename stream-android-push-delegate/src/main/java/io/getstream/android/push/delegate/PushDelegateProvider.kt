@@ -28,6 +28,7 @@ import io.getstream.log.StreamLog
 
 public class PushDelegateProvider : ContentProvider() {
     private val logger = StreamLog.getLogger("Push:Delegate")
+
     override fun onCreate(): Boolean {
         initializeDelegates()
         return true
@@ -51,10 +52,11 @@ public class PushDelegateProvider : ContentProvider() {
     }
 
     private fun Context.discoverDelegates(metadata: Bundle) {
-        _delegates = metadata
-            .keySet()
-            .filter { metadata.getString(it) == METADATA_VALUE }
-            .mapNotNull { it.toPushDelegate(this) }
+        _delegates =
+            metadata
+                .keySet()
+                .filter { metadata.getString(it) == METADATA_VALUE }
+                .mapNotNull { it.toPushDelegate(this) }
     }
 
     private fun String.toPushDelegate(context: Context): PushDelegate? =
@@ -85,7 +87,10 @@ public class PushDelegateProvider : ContentProvider() {
         throw IllegalStateException("Not allowed.")
     }
 
-    override fun insert(uri: Uri, values: ContentValues?): Uri? {
+    override fun insert(
+        uri: Uri,
+        values: ContentValues?,
+    ): Uri? {
         throw IllegalStateException("Not allowed.")
     }
 

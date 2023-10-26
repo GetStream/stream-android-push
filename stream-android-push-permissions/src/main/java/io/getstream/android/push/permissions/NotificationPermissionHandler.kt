@@ -20,7 +20,6 @@ package io.getstream.android.push.permissions
  * Handles [android.Manifest.permission.POST_NOTIFICATIONS] permission lifecycle.
  */
 public interface NotificationPermissionHandler {
-
     /**
      * Invoked when permission is requested.
      */

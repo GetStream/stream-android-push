@@ -63,7 +63,7 @@ public class HuaweiPushDeviceGenerator(
                             token = this,
                             pushProvider = PushProvider.HUAWEI,
                             providerName = providerName,
-                        )
+                        ),
                     )
                 }
                 ?: logger.i { "Error: Huawei didn't returned token" }

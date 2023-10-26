@@ -26,7 +26,6 @@ import kotlin.jvm.Throws
  * Helper class for delegating Huawei push messages to the Stream Chat SDK.
  */
 public object HuaweiMessagingDelegate {
-
     internal var fallbackProviderName: String? = null
 
     /**

@@ -21,10 +21,12 @@ import android.app.Application
 import android.os.Bundle
 
 public abstract class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
-
     private var activityCount: Int = 0
 
-    override fun onActivityCreated(activity: Activity, bunlde: Bundle?) { /* no-op */ }
+    override fun onActivityCreated(
+        activity: Activity,
+        bunlde: Bundle?,
+    ) { /* no-op */ }
 
     override fun onActivityStarted(activity: Activity) {
         if (activityCount++ == 0) {
@@ -46,7 +48,10 @@ public abstract class ActivityLifecycleCallbacks : Application.ActivityLifecycle
 
     public open fun onLastActivityStopped(activity: Activity) { /* no-op */ }
 
-    override fun onActivitySaveInstanceState(activity: Activity, bunlde: Bundle) { /* no-op */ }
+    override fun onActivitySaveInstanceState(
+        activity: Activity,
+        bunlde: Bundle,
+    ) { /* no-op */ }
 
     override fun onActivityDestroyed(activity: Activity) { /* no-op */ }
 }

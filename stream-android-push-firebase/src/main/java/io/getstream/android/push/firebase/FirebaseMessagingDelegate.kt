@@ -25,7 +25,6 @@ import io.getstream.android.push.delegate.PushDelegateProvider
  * Helper class for delegating Firebase push messages to the Stream Chat SDK.
  */
 public object FirebaseMessagingDelegate {
-
     internal var fallbackProviderName: String? = null
 
     /**

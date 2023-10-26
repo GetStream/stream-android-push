@@ -27,7 +27,6 @@ import io.getstream.log.taggedLogger
  */
 public class DefaultNotificationPermissionHandler private constructor() : NotificationPermissionHandler,
     ActivityLifecycleCallbacks() {
-
     private val logger by taggedLogger("Push:Default-NPH")
 
     private var currentActivity: Activity? = null
@@ -55,14 +54,17 @@ public class DefaultNotificationPermissionHandler private constructor() : Notifi
 
     private fun Activity.showNotificationBlocked() {
         Toast.makeText(
-            this, R.string.stream_push_permissions_notifications_message, Toast.LENGTH_LONG
+            this,
+            R.string.stream_push_permissions_notifications_message,
+            Toast.LENGTH_LONG,
         ).show()
     }
 
     public companion object {
         public fun createDefaultNotificationPermissionHandler(
             application: Application,
-        ): DefaultNotificationPermissionHandler = DefaultNotificationPermissionHandler()
-            .also { application.registerActivityLifecycleCallbacks(it) }
+        ): DefaultNotificationPermissionHandler =
+            DefaultNotificationPermissionHandler()
+                .also { application.registerActivityLifecycleCallbacks(it) }
     }
 }
