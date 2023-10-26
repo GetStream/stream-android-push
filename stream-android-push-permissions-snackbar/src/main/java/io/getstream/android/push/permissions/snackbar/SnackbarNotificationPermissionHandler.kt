@@ -34,7 +34,6 @@ import io.getstream.log.taggedLogger
  */
 public class SnackbarNotificationPermissionHandler private constructor() : NotificationPermissionHandler,
     ActivityLifecycleCallbacks() {
-
     private val logger by taggedLogger("Push:Snackbar-NPH")
 
     private var currentActivity: Activity? = null
@@ -65,7 +64,7 @@ public class SnackbarNotificationPermissionHandler private constructor() : Notif
         Snackbar.make(
             contentLayout,
             R.string.stream_push_permissions_notifications_message,
-            Snackbar.LENGTH_LONG
+            Snackbar.LENGTH_LONG,
         ).setAction(R.string.stream_push_permissions_setting_button) {
             openSystemSettings()
         }.show()
@@ -75,18 +74,20 @@ public class SnackbarNotificationPermissionHandler private constructor() : Notif
      * Forwards user to the application settings screen.
      */
     private fun Context.openSystemSettings() {
-        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
-            val uri: Uri = Uri.fromParts("package", packageName, null)
-            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            data = uri
-        }
+        val intent =
+            Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
+                val uri: Uri = Uri.fromParts("package", packageName, null)
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                data = uri
+            }
         startActivity(intent)
     }
 
     public companion object {
         public fun createSnackbarNotificationPermissionHandler(
             application: Application,
-        ): SnackbarNotificationPermissionHandler = SnackbarNotificationPermissionHandler()
-            .also { application.registerActivityLifecycleCallbacks(it) }
+        ): SnackbarNotificationPermissionHandler =
+            SnackbarNotificationPermissionHandler()
+                .also { application.registerActivityLifecycleCallbacks(it) }
     }
 }

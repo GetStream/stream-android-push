@@ -28,7 +28,9 @@ import io.getstream.log.StreamLog
 /**
  * Generator responsible for providing information needed to register Firebase push notifications provider
  */
-public class FirebasePushDeviceGenerator @JvmOverloads constructor(
+public class FirebasePushDeviceGenerator
+@JvmOverloads
+constructor(
     private val firebaseMessaging: FirebaseMessaging = FirebaseMessaging.getInstance(),
     private val providerName: String,
 ) : PushDeviceGenerator {
@@ -53,7 +55,7 @@ public class FirebasePushDeviceGenerator @JvmOverloads constructor(
                         token = it.result,
                         pushProvider = PushProvider.FIREBASE,
                         providerName = providerName,
-                    )
+                    ),
                 )
             } else {
                 logger.i { "Error: Firebase didn't returned token" }

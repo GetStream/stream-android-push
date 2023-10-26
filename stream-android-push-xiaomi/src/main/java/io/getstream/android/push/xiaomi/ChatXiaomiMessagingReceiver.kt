@@ -34,7 +34,10 @@ public class ChatXiaomiMessagingReceiver : PushMessageReceiver() {
      * @param context The [Context] where this code is run.
      * @param miPushMessage A [MiPushMessage] that contains inifo about the push notification.
      */
-    override fun onReceivePassThroughMessage(context: Context, miPushMessage: MiPushMessage) {
+    override fun onReceivePassThroughMessage(
+        context: Context,
+        miPushMessage: MiPushMessage,
+    ) {
         logger.i { "[onReceiveXiaomiPassThroughMessage] miPushMessage: $miPushMessage" }
         try {
             XiaomiMessagingDelegate.handleMiPushMessage(miPushMessage)
@@ -49,7 +52,10 @@ public class ChatXiaomiMessagingReceiver : PushMessageReceiver() {
      * @param context The [Context] where this code is run.
      * @param miPushCommandMessage A [MiPushCommandMessage] that contains inifo about the device.
      */
-    override fun onReceiveRegisterResult(context: Context, miPushCommandMessage: MiPushCommandMessage) {
+    override fun onReceiveRegisterResult(
+        context: Context,
+        miPushCommandMessage: MiPushCommandMessage,
+    ) {
         logger.d { "[onReceiveXiaomiRegisterResult] miPushCommandMessage: $miPushCommandMessage" }
         try {
             XiaomiMessagingDelegate.registerXiaomiToken(miPushCommandMessage, "")

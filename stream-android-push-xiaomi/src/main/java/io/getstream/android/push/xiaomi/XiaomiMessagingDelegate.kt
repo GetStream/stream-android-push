@@ -30,7 +30,6 @@ import io.getstream.android.push.delegate.PushDelegateProvider
  * Helper class for delegating Xiaomi push messages to the Stream Chat SDK.
  */
 public object XiaomiMessagingDelegate {
-
     internal var fallbackProviderName: String? = null
 
     private val mapAdapter: JsonAdapter<MutableMap<String, String>> by lazy {
