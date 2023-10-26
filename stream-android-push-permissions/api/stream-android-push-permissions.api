@@ -11,13 +11,6 @@ public abstract class io/getstream/android/push/permissions/ActivityLifecycleCal
 	public fun onLastActivityStopped (Landroid/app/Activity;)V
 }
 
-public final class io/getstream/android/push/permissions/BuildConfig {
-	public static final field BUILD_TYPE Ljava/lang/String;
-	public static final field DEBUG Z
-	public static final field LIBRARY_PACKAGE_NAME Ljava/lang/String;
-	public fun <init> ()V
-}
-
 public final class io/getstream/android/push/permissions/DefaultNotificationPermissionHandler : io/getstream/android/push/permissions/ActivityLifecycleCallbacks, io/getstream/android/push/permissions/NotificationPermissionHandler {
 	public static final field Companion Lio/getstream/android/push/permissions/DefaultNotificationPermissionHandler$Companion;
 	public fun onActivityStarted (Landroid/app/Activity;)V

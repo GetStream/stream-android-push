@@ -16,9 +16,9 @@ apply from: "${rootDir}/scripts/android.gradle"
 
 
 android {
+    namespace 'io.getstream.android.push.firebase'
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
         buildConfigField 'String', 'STREAM_CHAT_VERSION', "\"$version\""
     }
     buildTypes {
@@ -35,6 +35,10 @@ android {
 
     lintOptions {
         xmlReport false
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     testOptions.unitTests {
