@@ -25,6 +25,7 @@ public final class io/getstream/android/push/PushProvider : java/lang/Enum {
 	public static final field HUAWEI Lio/getstream/android/push/PushProvider;
 	public static final field UNKNOWN Lio/getstream/android/push/PushProvider;
 	public static final field XIAOMI Lio/getstream/android/push/PushProvider;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public final fun getKey ()Ljava/lang/String;
 	public static fun valueOf (Ljava/lang/String;)Lio/getstream/android/push/PushProvider;
 	public static fun values ()[Lio/getstream/android/push/PushProvider;
