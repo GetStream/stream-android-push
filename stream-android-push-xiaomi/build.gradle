@@ -16,6 +16,7 @@ apply from: "${rootDir}/scripts/android.gradle"
 
 
 android {
+    namespace 'io.getstream.android.push.xiaomi'
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
