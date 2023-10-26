@@ -53,6 +53,7 @@ public final class io/getstream/android/push/permissions/NotificationPermissionS
 	public static final field GRANTED Lio/getstream/android/push/permissions/NotificationPermissionStatus;
 	public static final field RATIONALE_NEEDED Lio/getstream/android/push/permissions/NotificationPermissionStatus;
 	public static final field REQUESTED Lio/getstream/android/push/permissions/NotificationPermissionStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lio/getstream/android/push/permissions/NotificationPermissionStatus;
 	public static fun values ()[Lio/getstream/android/push/permissions/NotificationPermissionStatus;
 }
