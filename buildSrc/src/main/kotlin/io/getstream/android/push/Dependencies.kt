@@ -34,7 +34,7 @@ object Versions {
     internal const val MOSHI = "1.15.0"
     internal const val OKHTTP = "4.11.0"
     internal const val ROBOLECTRIC = "4.10.3"
-    internal const val SPOTLESS = "6.7.2"
+    internal const val SPOTLESS = "6.20.0"
     internal const val STREAM_LOG = "1.1.4"
     internal const val TEST_PARAMETER_INJECTOR = "1.10"
 }
