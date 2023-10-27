@@ -16,7 +16,7 @@ object Versions {
     internal const val DOKKA = "1.9.10"
     internal const val DOKKASAURUS = "0.1.10"
     internal const val ESPRESSO = "3.5.1"
-    internal const val FIREBASE_MESSAGING = "23.1.2"
+    internal const val FIREBASE_MESSAGING = "23.3.1"
     internal const val GITVERSIONER = "0.5.0"
     internal const val GRADLE_NEXUS_PUBLISH_PLUGIN = "1.1.0"
     internal const val GRADLE_VERSIONS_PLUGIN = "0.44.0"
