@@ -12,7 +12,7 @@ object Versions {
     internal const val ANDROIDX_TEST_JUNIT = "1.1.5"
     internal const val ANDROIDX_KTX = "1.12.0"
     internal const val COROUTINES = "1.7.3"
-    internal const val DETEKT_PLUGIN = "1.21.0"
+    internal const val DETEKT_PLUGIN = "1.23.1"
     internal const val DOKKA = "1.9.10"
     internal const val DOKKASAURUS = "0.1.10"
     internal const val ESPRESSO = "3.5.1"
