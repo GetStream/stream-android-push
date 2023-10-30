@@ -20,6 +20,7 @@ android {
     defaultConfig {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         buildConfigField 'String', 'STREAM_CHAT_VERSION', "\"$version\""
+        consumerProguardFiles 'consumer-rules.pro'
     }
     buildTypes {
         release {
