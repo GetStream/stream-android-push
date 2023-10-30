@@ -18,7 +18,7 @@ object Versions {
     internal const val ESPRESSO = "3.5.1"
     internal const val FIREBASE_MESSAGING = "23.3.1"
     internal const val GITVERSIONER = "0.5.0"
-    internal const val GRADLE_NEXUS_PUBLISH_PLUGIN = "1.1.0"
+    internal const val GRADLE_NEXUS_PUBLISH_PLUGIN = "1.3.0"
     internal const val GRADLE_VERSIONS_PLUGIN = "0.49.0"
     internal const val HUAWEI_AGCP = "1.7.3.302"
     internal const val HUAWEI_PUSH = "6.11.0.300"
