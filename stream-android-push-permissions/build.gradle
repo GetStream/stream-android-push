@@ -54,6 +54,7 @@ dependencies {
 
     implementation Dependencies.androidxCoreKtx
     implementation Dependencies.androidxActivityKtx
+    implementation Dependencies.androidxStartup
     implementation Dependencies.streamLog
 
     // Tests
