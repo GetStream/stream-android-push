@@ -58,3 +58,10 @@ public final class io/getstream/android/push/permissions/NotificationPermissionS
 	public static fun values ()[Lio/getstream/android/push/permissions/NotificationPermissionStatus;
 }
 
+public final class io/getstream/android/push/permissions/PushPermissionsInitializer : androidx/startup/Initializer {
+	public fun <init> ()V
+	public synthetic fun create (Landroid/content/Context;)Ljava/lang/Object;
+	public fun create (Landroid/content/Context;)V
+	public fun dependencies ()Ljava/util/List;
+}
+
