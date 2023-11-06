@@ -32,14 +32,11 @@ public abstract interface class io/getstream/android/push/permissions/Notificati
 	public abstract fun onPermissionRequested ()V
 }
 
-public final class io/getstream/android/push/permissions/NotificationPermissionManager : io/getstream/android/push/permissions/ActivityLifecycleCallbacks {
+public final class io/getstream/android/push/permissions/NotificationPermissionManager : io/getstream/android/push/permissions/PushNotificationPermissionRequester$PushNotificationPermissionCallback {
 	public static final field Companion Lio/getstream/android/push/permissions/NotificationPermissionManager$Companion;
-	public synthetic fun <init> (Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun onActivityCreated (Landroid/app/Activity;Landroid/os/Bundle;)V
-	public fun onActivityStarted (Landroid/app/Activity;)V
-	public fun onActivityStopped (Landroid/app/Activity;)V
-	public fun onFirstActivityStarted (Landroid/app/Activity;)V
-	public fun onLastActivityStopped (Landroid/app/Activity;)V
+	public synthetic fun <init> (Lio/getstream/android/push/permissions/PushNotificationPermissionRequester;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun onAppLaunched ()V
+	public fun onPermissionStatusChanged (Lio/getstream/android/push/permissions/NotificationPermissionStatus;)V
 	public final fun start ()V
 	public final fun stop ()V
 }
