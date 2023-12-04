@@ -63,6 +63,12 @@ internal class PushNotificationPermissionRequester private constructor() : Activ
         super.onActivityStarted(activity)
     }
 
+    override fun onActivityResumed(activity: Activity) {
+        logger.v { "[onActivityResumed] activity: $activity" }
+        currentActivity = activity
+        super.onActivityResumed(activity)
+    }
+
     override fun onActivityStopped(activity: Activity) {
         logger.v { "[onActivityStopped] activity: $activity" }
         activity.unregisterPermissionCallback()
