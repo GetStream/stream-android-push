@@ -7,8 +7,18 @@ apply plugin: 'org.jetbrains.dokka'
 
 buildscript {
     repositories {
-        maven { url "https://plugins.gradle.org/m2/" }
         google()
+        maven {
+            url "https://jitpack.io"
+            content {
+                includeModule("com.github.passsy", "gradle-gitVersioner-plugin")
+            }
+        }
+
+        // fetch plugins from gradle plugin portal (https://plugins.gradle.org)
+        gradlePluginPortal()
+
+        // Fallback for the rest of the dependencies
         mavenCentral()
     }
 

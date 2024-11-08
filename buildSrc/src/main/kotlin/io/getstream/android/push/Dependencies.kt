@@ -68,7 +68,7 @@ object Dependencies {
     const val kotlinBinaryValidator =
         "org.jetbrains.kotlinx:binary-compatibility-validator:${Versions.KOTLIN_BINARY_VALIDATOR}"
     const val materialComponents = "com.google.android.material:material:${Versions.MATERIAL_COMPONENTS}"
-    const val gitversionerPlugin = "com.pascalwelsch.gitversioner:gitversioner:${Versions.GITVERSIONER}"
+    const val gitversionerPlugin = "com.github.passsy:gradle-gitVersioner-plugin:${Versions.GITVERSIONER}"
     const val kotlinGradlePlugin = "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.KOTLIN}"
     const val gradleVersionsPlugin = "com.github.ben-manes:gradle-versions-plugin:${Versions.GRADLE_VERSIONS_PLUGIN}"
     const val gradleNexusPublishPlugin = "io.github.gradle-nexus:publish-plugin:${Versions.GRADLE_NEXUS_PUBLISH_PLUGIN}"
