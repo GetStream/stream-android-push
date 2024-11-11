@@ -25,12 +25,14 @@ import com.xiaomi.mipush.sdk.MiPushMessage
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushProvider
 import io.getstream.android.push.delegate.PushDelegateProvider
+import io.getstream.log.StreamLog
 
 /**
  * Helper class for delegating Xiaomi push messages to the Stream Chat SDK.
  */
 public object XiaomiMessagingDelegate {
     internal var fallbackProviderName: String? = null
+    private val logger = StreamLog.getLogger("Push:Xiaomi")
 
     private val mapAdapter: JsonAdapter<MutableMap<String, String>> by lazy {
         Moshi.Builder()
@@ -48,12 +50,18 @@ public object XiaomiMessagingDelegate {
      */
     @JvmStatic
     public fun handleMiPushMessage(miPushMessage: MiPushMessage): Boolean {
-        return PushDelegateProvider.delegates.any {
-            it.handlePushMessage(
+        logger.d { "[handleRemoteMessage] handling remote message: $miPushMessage" }
+        return PushDelegateProvider.delegates.any { pushDelegate ->
+            pushDelegate.handlePushMessage(
                 metadata = miPushMessage.extractMetadata(),
                 payload = miPushMessage.contentMap,
-            )
+            ).also { handled ->
+                if (handled) logger.d { "[handleRemoteMessage] message handled successfully by $pushDelegate" }
+            }
         }
+            .also { handled ->
+                if (!handled) logger.d { "[handleRemoteMessage] message was not handled by any Push Delete" }
+            }
     }
 
     /**

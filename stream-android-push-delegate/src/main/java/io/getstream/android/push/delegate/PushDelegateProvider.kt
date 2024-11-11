@@ -72,6 +72,7 @@ public class PushDelegateProvider : ContentProvider() {
             logger.e(e) { "PushDelegate not created for '$this'" }
             null
         }
+            .also { logger.d { "PushDelegate created for '$this' ($it)" } }
 
     override fun query(
         uri: Uri,

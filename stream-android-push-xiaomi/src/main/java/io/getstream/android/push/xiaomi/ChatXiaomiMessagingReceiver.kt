@@ -41,6 +41,12 @@ public class ChatXiaomiMessagingReceiver : PushMessageReceiver() {
         logger.i { "[onReceiveXiaomiPassThroughMessage] miPushMessage: $miPushMessage" }
         try {
             XiaomiMessagingDelegate.handleMiPushMessage(miPushMessage)
+                .also {
+                    when (it) {
+                        true -> logger.d { "[onReceivePassThroughMessage] message handled successfully" }
+                        false -> logger.d { "[onReceivePassThroughMessage] message was not handled" }
+                    }
+                }
         } catch (exception: IllegalStateException) {
             logger.e(exception) { "[onReceivePassThroughMessage] error while handling remote message" }
         }

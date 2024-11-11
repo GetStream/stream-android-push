@@ -20,12 +20,14 @@ import com.google.firebase.messaging.RemoteMessage
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushProvider
 import io.getstream.android.push.delegate.PushDelegateProvider
+import io.getstream.log.StreamLog
 
 /**
  * Helper class for delegating Firebase push messages to the Stream Chat SDK.
  */
 public object FirebaseMessagingDelegate {
     internal var fallbackProviderName: String? = null
+    private val logger = StreamLog.getLogger("Push:Firebase")
 
     /**
      * Handles [remoteMessage] from Firebase.
@@ -37,12 +39,18 @@ public object FirebaseMessagingDelegate {
      */
     @JvmStatic
     public fun handleRemoteMessage(remoteMessage: RemoteMessage): Boolean {
-        return PushDelegateProvider.delegates.any {
-            it.handlePushMessage(
+        logger.d { "[handleRemoteMessage] handling remote message: $remoteMessage" }
+        return PushDelegateProvider.delegates.any { pushDelegate ->
+            pushDelegate.handlePushMessage(
                 metadata = remoteMessage.extractMetadata(),
                 payload = remoteMessage.data,
-            )
+            ).also { handled ->
+                if (handled) logger.d { "[handleRemoteMessage] message handled successfully by $pushDelegate" }
+            }
         }
+            .also { handled ->
+                if (!handled) logger.d { "[handleRemoteMessage] message was not handled by any Push Delete" }
+            }
     }
 
     /**

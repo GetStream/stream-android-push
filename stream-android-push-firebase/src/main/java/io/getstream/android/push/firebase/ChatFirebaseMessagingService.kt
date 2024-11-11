@@ -27,6 +27,12 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
         logger.d { "[onFirebaseMessageReceived] remoteMessage: $remoteMessage" }
         try {
             FirebaseMessagingDelegate.handleRemoteMessage(remoteMessage)
+                .also {
+                    when (it) {
+                        true -> logger.d { "[onFirebaseMessageReceived] message handled successfully" }
+                        false -> logger.d { "[onFirebaseMessageReceived] message was not handled" }
+                    }
+                }
         } catch (exception: IllegalStateException) {
             logger.e(exception) { "[onFirebaseMessageReceived] error while handling remote message" }
         } finally {

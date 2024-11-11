@@ -20,6 +20,7 @@ import com.huawei.hms.push.RemoteMessage
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushProvider
 import io.getstream.android.push.delegate.PushDelegateProvider
+import io.getstream.log.StreamLog
 import kotlin.jvm.Throws
 
 /**
@@ -27,6 +28,7 @@ import kotlin.jvm.Throws
  */
 public object HuaweiMessagingDelegate {
     internal var fallbackProviderName: String? = null
+    private val logger = StreamLog.getLogger("Push:Huawei")
 
     /**
      * Handles [remoteMessage] from Huawei.
@@ -39,12 +41,18 @@ public object HuaweiMessagingDelegate {
     @Throws(IllegalStateException::class)
     @JvmStatic
     public fun handleRemoteMessage(remoteMessage: RemoteMessage): Boolean {
-        return PushDelegateProvider.delegates.any {
-            it.handlePushMessage(
+        logger.d { "[handleRemoteMessage] handling remote message: $remoteMessage" }
+        return PushDelegateProvider.delegates.any { pushDelegate ->
+            pushDelegate.handlePushMessage(
                 metadata = remoteMessage.extractMetadata(),
                 payload = remoteMessage.dataOfMap,
-            )
+            ).also { handled ->
+                if (handled) logger.d { "[handleRemoteMessage] message handled successfully by $pushDelegate" }
+            }
         }
+            .also { handled ->
+                if (!handled) logger.d { "[handleRemoteMessage] message was not handled by any Push Delete" }
+            }
     }
 
     /**

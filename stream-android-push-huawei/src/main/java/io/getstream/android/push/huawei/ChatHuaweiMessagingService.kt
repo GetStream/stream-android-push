@@ -27,6 +27,12 @@ internal class ChatHuaweiMessagingService : HmsMessageService() {
         logger.d { "[onHuaweiMessageReceived] remoteMessage: $remoteMessage" }
         try {
             HuaweiMessagingDelegate.handleRemoteMessage(remoteMessage)
+                .also {
+                    when (it) {
+                        true -> logger.d { "[onHuaweiMessageReceived] message handled successfully" }
+                        false -> logger.d { "[onHuaweiMessageReceived] message was not handled" }
+                    }
+                }
         } catch (exception: IllegalStateException) {
             logger.e(exception) { "[onHuaweiMessageReceived] error while handling remote message" }
         } finally {
