@@ -1,11 +1,11 @@
 /*
  * Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
  *
- * Licensed under the Stream License;
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    https://github.com/GetStream/stream-android-push/blob/main/LICENSE
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.getstream.android.push
 
 import android.content.Context
@@ -22,18 +21,18 @@ import android.content.Context
  * Generator responsible for providing information needed to register the push notifications provider
  */
 public interface PushDeviceGenerator {
-    /**
-     * Checks if push notification provider is valid for this device
-     */
-    public fun isValidForThisDevice(context: Context): Boolean
+  /**
+   * Checks if push notification provider is valid for this device
+   */
+  public fun isValidForThisDevice(context: Context): Boolean
 
-    /**
-     * Called when this [PushDeviceGenerator] has been selected to be used.
-     */
-    public fun onPushDeviceGeneratorSelected()
+  /**
+   * Called when this [PushDeviceGenerator] has been selected to be used.
+   */
+  public fun onPushDeviceGeneratorSelected()
 
-    /**
-     * Asynchronously generates a [PushDevice] and calls [onPushDeviceGenerated] callback once it's ready
-     */
-    public fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit)
+  /**
+   * Asynchronously generates a [PushDevice] and calls [onPushDeviceGenerated] callback once it's ready
+   */
+  public fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit)
 }

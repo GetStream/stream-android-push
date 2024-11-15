@@ -1,11 +1,11 @@
 /*
  * Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
  *
- * Licensed under the Stream License;
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    https://github.com/GetStream/stream-android-push/blob/main/LICENSE
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.getstream.android.push.permissions
 
 import android.app.Activity
@@ -21,37 +20,44 @@ import android.app.Application
 import android.os.Bundle
 
 public abstract class ActivityLifecycleCallbacks : Application.ActivityLifecycleCallbacks {
-    private var activityCount: Int = 0
+  private var activityCount: Int = 0
 
-    override fun onActivityCreated(
-        activity: Activity,
-        bunlde: Bundle?,
-    ) { /* no-op */ }
+  override fun onActivityCreated(
+    activity: Activity,
+    bunlde: Bundle?
+  ) { // no-op
+  }
 
-    override fun onActivityStarted(activity: Activity) {
-        if (activityCount++ == 0) {
-            onFirstActivityStarted(activity)
-        }
+  override fun onActivityStarted(activity: Activity) {
+    if (activityCount++ == 0) {
+      onFirstActivityStarted(activity)
     }
+  }
 
-    public open fun onFirstActivityStarted(activity: Activity) { /* no-op */ }
+  public open fun onFirstActivityStarted(activity: Activity) { // no-op
+  }
 
-    override fun onActivityResumed(activity: Activity) { /* no-op */ }
+  override fun onActivityResumed(activity: Activity) { // no-op
+  }
 
-    override fun onActivityPaused(activity: Activity) { /* no-op */ }
+  override fun onActivityPaused(activity: Activity) { // no-op
+  }
 
-    override fun onActivityStopped(activity: Activity) {
-        if (--activityCount == 0) {
-            onLastActivityStopped(activity)
-        }
+  override fun onActivityStopped(activity: Activity) {
+    if (--activityCount == 0) {
+      onLastActivityStopped(activity)
     }
+  }
 
-    public open fun onLastActivityStopped(activity: Activity) { /* no-op */ }
+  public open fun onLastActivityStopped(activity: Activity) { // no-op
+  }
 
-    override fun onActivitySaveInstanceState(
-        activity: Activity,
-        bunlde: Bundle,
-    ) { /* no-op */ }
+  override fun onActivitySaveInstanceState(
+    activity: Activity,
+    bunlde: Bundle
+  ) { // no-op
+  }
 
-    override fun onActivityDestroyed(activity: Activity) { /* no-op */ }
+  override fun onActivityDestroyed(activity: Activity) { // no-op
+  }
 }

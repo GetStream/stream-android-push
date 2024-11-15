@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
+ * Copyright (c) 2014-$YEAR Stream.io Inc. All rights reserved.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,14 +13,3 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.getstream.android.push.permissions
-
-/**
- * Represents current [android.Manifest.permission.POST_NOTIFICATIONS] permission status.
- */
-public enum class NotificationPermissionStatus {
-  REQUESTED,
-  GRANTED,
-  DENIED,
-  RATIONALE_NEEDED,
-}

@@ -3,15 +3,13 @@ import io.getstream.android.push.Dependencies
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: "de.mannodermaus.android-junit5"
 
-ext {
-    PUBLISH_GROUP_ID = Configuration.artifactGroup
-    PUBLISH_ARTIFACT_ID = 'stream-android-push-xiaomi'
-    PUBLISH_VERSION = rootVersionName
-}
+//ext {
+//    PUBLISH_GROUP_ID = Configuration.artifactGroup
+//    PUBLISH_ARTIFACT_ID = 'stream-android-push-xiaomi'
+//    PUBLISH_VERSION = rootVersionName
+//}
 
-apply from: "${rootDir}/scripts/publish-module.gradle"
 apply from: "${rootDir}/scripts/android.gradle"
 
 
@@ -57,6 +55,4 @@ dependencies {
     implementation Dependencies.moshiKotlin
     implementation Dependencies.streamLog
     compileOnly files('libs/MiPush_SDK_Client_5_1_8-G_3rd.aar')
-
-    detektPlugins(Dependencies.detektFormatting)
 }

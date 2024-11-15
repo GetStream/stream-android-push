@@ -1,11 +1,11 @@
 /*
  * Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
  *
- * Licensed under the Stream License;
+ * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *    https://github.com/GetStream/stream-android-push/blob/main/LICENSE
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.getstream.android.push.firebase
 
 import android.content.Context
@@ -31,35 +30,35 @@ import io.getstream.log.StreamLog
 public class FirebasePushDeviceGenerator
 @JvmOverloads
 constructor(
-    private val firebaseMessaging: FirebaseMessaging = FirebaseMessaging.getInstance(),
-    private val providerName: String,
+  private val firebaseMessaging: FirebaseMessaging = FirebaseMessaging.getInstance(),
+  private val providerName: String
 ) : PushDeviceGenerator {
-    private val logger = StreamLog.getLogger("Push:Firebase")
+  private val logger = StreamLog.getLogger("Push:Firebase")
 
-    override fun isValidForThisDevice(context: Context): Boolean =
-        (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS).also {
-            logger.i { "Is Firebase available on on this device -> $it" }
-        }
-
-    override fun onPushDeviceGeneratorSelected() {
-        FirebaseMessagingDelegate.fallbackProviderName = providerName
+  override fun isValidForThisDevice(context: Context): Boolean =
+    (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS).also {
+      logger.i { "Is Firebase available on on this device -> $it" }
     }
 
-    override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
-        logger.i { "Getting Firebase token" }
-        firebaseMessaging.token.addOnCompleteListener {
-            if (it.isSuccessful) {
-                logger.i { "Firebase returned token successfully" }
-                onPushDeviceGenerated(
-                    PushDevice(
-                        token = it.result,
-                        pushProvider = PushProvider.FIREBASE,
-                        providerName = providerName,
-                    ),
-                )
-            } else {
-                logger.i { "Error: Firebase didn't returned token" }
-            }
-        }
+  override fun onPushDeviceGeneratorSelected() {
+    FirebaseMessagingDelegate.fallbackProviderName = providerName
+  }
+
+  override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
+    logger.i { "Getting Firebase token" }
+    firebaseMessaging.token.addOnCompleteListener {
+      if (it.isSuccessful) {
+        logger.i { "Firebase returned token successfully" }
+        onPushDeviceGenerated(
+          PushDevice(
+            token = it.result,
+            pushProvider = PushProvider.FIREBASE,
+            providerName = providerName
+          )
+        )
+      } else {
+        logger.i { "Error: Firebase didn't returned token" }
+      }
     }
+  }
 }

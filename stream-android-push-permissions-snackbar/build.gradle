@@ -3,15 +3,13 @@ import io.getstream.android.push.Configuration
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: "de.mannodermaus.android-junit5"
 
-ext {
-    PUBLISH_GROUP_ID = Configuration.artifactGroup
-    PUBLISH_ARTIFACT_ID = 'stream-android-push-permissions-snackbar'
-    PUBLISH_VERSION = rootVersionName
-}
+//ext {
+//    PUBLISH_GROUP_ID = Configuration.artifactGroup
+//    PUBLISH_ARTIFACT_ID = 'stream-android-push-permissions-snackbar'
+//    PUBLISH_VERSION = rootVersionName
+//}
 
-apply from: "${rootDir}/scripts/publish-module.gradle"
 apply from: "${rootDir}/scripts/android.gradle"
 
 android {
@@ -74,6 +72,4 @@ dependencies {
     androidTestImplementation Dependencies.junit4
     androidTestImplementation Dependencies.espressoCore
     androidTestImplementation Dependencies.androidxTestJunit
-
-    detektPlugins(Dependencies.detektFormatting)
 }
