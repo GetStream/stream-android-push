@@ -43,7 +43,7 @@ public class XiaomiPushDeviceGenerator(
   private val appContext = context.applicationContext
   private var isAlreadyRegistered = AtomicBoolean(false)
 
-  override fun isValidForThisDevice(context: Context): Boolean = true
+  override fun isValidForThisDevice(): Boolean = true
 
   override fun onPushDeviceGeneratorSelected() {
     XiaomiMessagingDelegate.fallbackProviderName = providerName

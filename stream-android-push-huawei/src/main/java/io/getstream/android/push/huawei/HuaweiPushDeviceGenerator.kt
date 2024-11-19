@@ -40,7 +40,7 @@ public class HuaweiPushDeviceGenerator(
     private val logger = StreamLog.getLogger("Push:Huawei")
     private val hmsInstanceId: HmsInstanceId = HmsInstanceId.getInstance(context)
 
-    override fun isValidForThisDevice(context: Context): Boolean =
+    override fun isValidForThisDevice(): Boolean =
         (HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(context) == SUCCESS).also {
             logger.i { "Is Huawei available on on this device -> $it" }
         }

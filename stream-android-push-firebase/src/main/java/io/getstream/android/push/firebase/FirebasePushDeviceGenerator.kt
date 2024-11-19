@@ -31,11 +31,12 @@ public class FirebasePushDeviceGenerator
 @JvmOverloads
 constructor(
   private val firebaseMessaging: FirebaseMessaging = FirebaseMessaging.getInstance(),
-  private val providerName: String
+  private val providerName: String,
+  private val context: Context
 ) : PushDeviceGenerator {
   private val logger = StreamLog.getLogger("Push:Firebase")
 
-  override fun isValidForThisDevice(context: Context): Boolean =
+  override fun isValidForThisDevice(): Boolean =
     (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS).also {
       logger.i { "Is Firebase available on on this device -> $it" }
     }

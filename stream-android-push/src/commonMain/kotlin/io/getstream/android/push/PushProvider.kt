@@ -33,6 +33,6 @@ public enum class PushProvider(public val key: String) {
   ;
 
   public companion object {
-    public fun fromKey(key: String): PushProvider = values().firstOrNull { it.key == key } ?: UNKNOWN
+    public fun fromKey(key: String): PushProvider = entries.firstOrNull { it.key == key } ?: UNKNOWN
   }
 }
