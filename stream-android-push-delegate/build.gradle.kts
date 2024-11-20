@@ -25,7 +25,7 @@ plugins {
 }
 
 mavenPublishing {
-    val artifactId = "stream-android-push"
+    val artifactId = "stream-android-push-delegate"
     coordinates(
         Configuration.artifactGroup,
         artifactId,
@@ -93,7 +93,7 @@ kotlin {
 
 android {
     compileSdk = Configuration.compileSdk
-    namespace = "io.getstream.android.push"
+    namespace = "io.getstream.android.push.delegate"
     defaultConfig {
         minSdk = Configuration.minSdk
         consumerProguardFiles("consumer-proguard-rules.pro")
