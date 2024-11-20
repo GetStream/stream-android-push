@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 package io.getstream.android.push.delegate
-import android.content.Context
+
 import io.getstream.android.push.PushDevice
 
-public abstract class PushDelegate(public val context: Context) {
+public abstract class PushDelegate {
   /**
    * Handles push message payload.
    * If the payload can't be handled because doesn't contain the needed data, return false to notify you this

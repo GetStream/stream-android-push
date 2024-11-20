@@ -23,10 +23,15 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import io.getstream.android.push.delegate.PushDelegateProvider.Companion.METADATA_VALUE
+import io.getstream.android.push.delegate.PushDelegateProvider.Companion._delegates
+import io.getstream.android.push.delegate.PushDelegateProvider.Companion.isInitialized
 import io.getstream.log.StreamLog
+import io.getstream.log.TaggedLogger
 
-public class PushDelegateProvider : ContentProvider() {
-  private val logger = StreamLog.getLogger("Push:Delegate")
+public class AndroidPushDelegateProvider : PushDelegateProvider, ContentProvider() {
+
+  private val logger: TaggedLogger = StreamLog.getLogger("Push:Delegate")
 
   override fun onCreate(): Boolean {
     initializeDelegates()
@@ -35,7 +40,7 @@ public class PushDelegateProvider : ContentProvider() {
 
   private fun initializeDelegates() {
     context?.let {
-      synchronized(Companion) {
+      synchronized(PushDelegateProvider.Companion) {
         if (!isInitialized) {
           it.discoverDelegates()
         }
@@ -45,7 +50,7 @@ public class PushDelegateProvider : ContentProvider() {
   }
 
   private fun Context.discoverDelegates() {
-    val provider = ComponentName(packageName, PushDelegateProvider::class.java.name)
+    val provider = ComponentName(packageName, AndroidPushDelegateProvider::class.java.name)
     val providerInfo = packageManager.getProviderInfo(provider, PackageManager.GET_META_DATA)
     discoverDelegates(providerInfo.metaData)
   }
@@ -109,14 +114,5 @@ public class PushDelegateProvider : ContentProvider() {
     selectionArgs: Array<String?>?
   ): Int {
     throw IllegalStateException("Not allowed.")
-  }
-
-  public companion object {
-    @Volatile
-    private var isInitialized = false
-    private const val METADATA_VALUE = "io.getstream.android.push.PushDelegate"
-    private var _delegates: List<PushDelegate> = emptyList()
-    public val delegates: List<PushDelegate>
-      get() = _delegates
   }
 }
