@@ -15,11 +15,11 @@
  */
 package io.getstream.android.push.firebase
 
-import com.google.firebase.messaging.RemoteMessage
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushProvider
 import io.getstream.android.push.delegate.PushDelegateProvider
 import io.getstream.log.StreamLog
+import kotlin.jvm.JvmStatic
 
 /**
  * Helper class for delegating Firebase push messages to the Stream Chat SDK.
@@ -29,20 +29,20 @@ public object FirebaseMessagingDelegate {
   private val logger = StreamLog.getLogger("Push:Firebase")
 
   /**
-   * Handles [remoteMessage] from Firebase.
-   * If the [remoteMessage] wasn't sent from the Stream Server and doesn't contain the needed data,
+   * Handles [streamRemoteMessage] from Firebase.
+   * If the [streamRemoteMessage] wasn't sent from the Stream Server and doesn't contain the needed data,
    * return false to notify you that this remoteMessage needs to be handled by you.
    *
-   * @param remoteMessage The message to be handled.
-   * @return True if the [remoteMessage] was sent from the Stream Server and has been handled.
+   * @param streamRemoteMessage The message to be handled.
+   * @return True if the [streamRemoteMessage] was sent from the Stream Server and has been handled.
    */
   @JvmStatic
-  public fun handleRemoteMessage(remoteMessage: RemoteMessage): Boolean {
-    logger.d { "[handleRemoteMessage] handling remote message: $remoteMessage" }
+  public fun handleRemoteMessage(streamRemoteMessage: StreamRemoteMessage): Boolean {
+    logger.d { "[handleRemoteMessage] handling remote message: $streamRemoteMessage" }
     return PushDelegateProvider.delegates.any { pushDelegate ->
       pushDelegate.handlePushMessage(
-        metadata = remoteMessage.extractMetadata(),
-        payload = remoteMessage.data
+        metadata = streamRemoteMessage.extractMetadata(),
+        payload = streamRemoteMessage.data
       ).also { handled ->
         if (handled) logger.d { "[handleRemoteMessage] message handled successfully by $pushDelegate" }
       }
@@ -76,7 +76,7 @@ public object FirebaseMessagingDelegate {
       }
   }
 
-  private fun RemoteMessage.extractMetadata(): Map<String, Any> {
+  private fun StreamRemoteMessage.extractMetadata(): Map<String, Any> {
     return hashMapOf<String, Any>().apply {
       senderId?.also { put("firebase.sender_id", it) }
       from?.also { put("firebase.from", it) }

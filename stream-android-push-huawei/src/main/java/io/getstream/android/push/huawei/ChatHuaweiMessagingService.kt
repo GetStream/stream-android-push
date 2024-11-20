@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.getstream.android.push.huawei
 
 import com.huawei.hms.push.HmsMessageService
@@ -21,30 +20,30 @@ import com.huawei.hms.push.RemoteMessage
 import io.getstream.log.StreamLog
 
 internal class ChatHuaweiMessagingService : HmsMessageService() {
-    private val logger = StreamLog.getLogger("Push:Huawei")
+  private val logger = StreamLog.getLogger("Push:Huawei")
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
-        logger.d { "[onHuaweiMessageReceived] remoteMessage: $remoteMessage" }
-        try {
-            HuaweiMessagingDelegate.handleRemoteMessage(remoteMessage)
-                .also {
-                    when (it) {
-                        true -> logger.d { "[onHuaweiMessageReceived] message handled successfully" }
-                        false -> logger.d { "[onHuaweiMessageReceived] message was not handled" }
-                    }
-                }
-        } catch (exception: IllegalStateException) {
-            logger.e(exception) { "[onHuaweiMessageReceived] error while handling remote message" }
-        } finally {
-            stopSelf()
+  override fun onMessageReceived(remoteMessage: RemoteMessage) {
+    logger.d { "[onHuaweiMessageReceived] remoteMessage: $remoteMessage" }
+    try {
+      HuaweiMessagingDelegate.handleRemoteMessage(remoteMessage)
+        .also {
+          when (it) {
+            true -> logger.d { "[onHuaweiMessageReceived] message handled successfully" }
+            false -> logger.d { "[onHuaweiMessageReceived] message was not handled" }
+          }
         }
+    } catch (exception: IllegalStateException) {
+      logger.e(exception) { "[onHuaweiMessageReceived] error while handling remote message" }
+    } finally {
+      stopSelf()
     }
+  }
 
-    override fun onNewToken(token: String) {
-        try {
-            HuaweiMessagingDelegate.registerHuaweiToken(token, "")
-        } catch (exception: IllegalStateException) {
-            logger.e(exception) { "[onHuaweiNewToken] error while registering Huawei Token" }
-        }
+  override fun onNewToken(token: String) {
+    try {
+      HuaweiMessagingDelegate.registerHuaweiToken(token, "")
+    } catch (exception: IllegalStateException) {
+      logger.e(exception) { "[onHuaweiNewToken] error while registering Huawei Token" }
     }
+  }
 }

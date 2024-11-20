@@ -25,7 +25,7 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
   override fun onMessageReceived(remoteMessage: RemoteMessage) {
     logger.d { "[onFirebaseMessageReceived] remoteMessage: $remoteMessage" }
     try {
-      FirebaseMessagingDelegate.handleRemoteMessage(remoteMessage)
+      FirebaseMessagingDelegate.handleRemoteMessage(remoteMessage.toStreamRemoteMessage())
         .also {
           when (it) {
             true -> logger.d { "[onFirebaseMessageReceived] message handled successfully" }
@@ -46,4 +46,20 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
       logger.e(exception) { "[onFirebaseNewToken] error while registering Firebase Token" }
     }
   }
+}
+
+private fun RemoteMessage.toStreamRemoteMessage(): StreamRemoteMessage {
+  return StreamRemoteMessage(
+    data = data,
+    senderId = senderId,
+    from = from,
+    to = to,
+    messageType = messageType,
+    messageId = messageId,
+    collapseKey = collapseKey,
+    sentTime = sentTime,
+    ttl = ttl,
+    priority = priority,
+    originalPriority = originalPriority
+  )
 }

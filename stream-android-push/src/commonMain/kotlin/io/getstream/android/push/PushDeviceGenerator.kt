@@ -32,5 +32,5 @@ public interface PushDeviceGenerator {
   /**
    * Asynchronously generates a [PushDevice] and calls [onPushDeviceGenerated] callback once it's ready
    */
-  public fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit)
+  public suspend fun generatePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit)
 }

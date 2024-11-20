@@ -37,19 +37,23 @@ public class XiaomiPushDeviceGenerator(
   private val appId: String,
   private val appKey: String,
   private val providerName: String,
-  private val region: Region = Region.Global
+  private val region: Region = Region.Global,
+  private val isValidForThisDevice: () -> Boolean = { true }
 ) : PushDeviceGenerator {
   private val logger = StreamLog.getLogger("Push:Xiaomi")
   private val appContext = context.applicationContext
   private var isAlreadyRegistered = AtomicBoolean(false)
 
-  override fun isValidForThisDevice(): Boolean = true
+  override fun isValidForThisDevice(): Boolean =
+    isValidForThisDevice.invoke().also {
+      logger.i { "Is Firebase available on this device -> $it" }
+    }
 
   override fun onPushDeviceGeneratorSelected() {
     XiaomiMessagingDelegate.fallbackProviderName = providerName
   }
 
-  override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
+  override suspend fun generatePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
     logger.i { "Getting Xiaomi token" }
     if (isAlreadyRegistered.compareAndSet(false, true)) {
       MiPushClient.setRegion(region)

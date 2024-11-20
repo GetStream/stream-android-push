@@ -13,13 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package io.getstream.android.push.huawei
 
 import android.content.Context
 import com.huawei.hms.aaid.HmsInstanceId
-import com.huawei.hms.api.ConnectionResult.SUCCESS
-import com.huawei.hms.api.HuaweiApiAvailability
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushDeviceGenerator
 import io.getstream.android.push.PushProvider
@@ -33,40 +30,41 @@ import kotlinx.coroutines.launch
  * Generator responsible for providing information needed to register Huawei push notifications provider
  */
 public class HuaweiPushDeviceGenerator(
-    context: Context,
-    private val appId: String,
-    private val providerName: String,
+  context: Context,
+  private val appId: String,
+  private val providerName: String,
+  private val isValidForThisDevice: () -> Boolean = { true }
 ) : PushDeviceGenerator {
-    private val logger = StreamLog.getLogger("Push:Huawei")
-    private val hmsInstanceId: HmsInstanceId = HmsInstanceId.getInstance(context)
+  private val logger = StreamLog.getLogger("Push:Huawei")
+  private val hmsInstanceId: HmsInstanceId = HmsInstanceId.getInstance(context)
 
-    override fun isValidForThisDevice(): Boolean =
-        (HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(context) == SUCCESS).also {
-            logger.i { "Is Huawei available on on this device -> $it" }
-        }
-
-    override fun onPushDeviceGeneratorSelected() {
-        HuaweiMessagingDelegate.fallbackProviderName = providerName
+  override fun isValidForThisDevice(): Boolean =
+    isValidForThisDevice.invoke().also {
+      logger.i { "Is Huawei available on this device -> $it" }
     }
 
-    override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
-        logger.i { "Getting Huawei token" }
+  override fun onPushDeviceGeneratorSelected() {
+    HuaweiMessagingDelegate.fallbackProviderName = providerName
+  }
 
-        @OptIn(DelicateCoroutinesApi::class)
-        GlobalScope.launch(Dispatchers.IO) {
-            hmsInstanceId.getToken(appId, "HCM")
-                .takeUnless { it.isNullOrBlank() }
-                ?.run {
-                    logger.i { "Huawei returned token successfully" }
-                    onPushDeviceGenerated(
-                        PushDevice(
-                            token = this,
-                            pushProvider = PushProvider.HUAWEI,
-                            providerName = providerName,
-                        ),
-                    )
-                }
-                ?: logger.i { "Error: Huawei didn't returned token" }
+  override suspend fun generatePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
+    logger.i { "Getting Huawei token" }
+
+    @OptIn(DelicateCoroutinesApi::class)
+    GlobalScope.launch(Dispatchers.IO) {
+      hmsInstanceId.getToken(appId, "HCM")
+        .takeUnless { it.isNullOrBlank() }
+        ?.run {
+          logger.i { "Huawei returned token successfully" }
+          onPushDeviceGenerated(
+            PushDevice(
+              token = this,
+              pushProvider = PushProvider.HUAWEI,
+              providerName = providerName
+            )
+          )
         }
+        ?: logger.i { "Error: Huawei didn't returned token" }
     }
+  }
 }

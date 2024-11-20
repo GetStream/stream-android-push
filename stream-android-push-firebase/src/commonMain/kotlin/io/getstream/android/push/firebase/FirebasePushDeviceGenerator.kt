@@ -15,51 +15,48 @@
  */
 package io.getstream.android.push.firebase
 
-import android.content.Context
-import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.common.GoogleApiAvailability
-import com.google.firebase.messaging.FirebaseMessaging
+import dev.gitlive.firebase.Firebase
+import dev.gitlive.firebase.messaging.FirebaseMessaging
+import dev.gitlive.firebase.messaging.messaging
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushDeviceGenerator
 import io.getstream.android.push.PushProvider
 import io.getstream.log.StreamLog
+import kotlin.jvm.JvmOverloads
 
 /**
  * Generator responsible for providing information needed to register Firebase push notifications provider
  */
-public class FirebasePushDeviceGenerator
-@JvmOverloads
-constructor(
-  private val firebaseMessaging: FirebaseMessaging = FirebaseMessaging.getInstance(),
+public class FirebasePushDeviceGenerator @JvmOverloads constructor(
+  private val firebaseMessaging: FirebaseMessaging = Firebase.messaging,
   private val providerName: String,
-  private val context: Context
+  private val isValidForThisDevice: () -> Boolean = { true }
 ) : PushDeviceGenerator {
   private val logger = StreamLog.getLogger("Push:Firebase")
 
   override fun isValidForThisDevice(): Boolean =
-    (GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context) == ConnectionResult.SUCCESS).also {
-      logger.i { "Is Firebase available on on this device -> $it" }
+    isValidForThisDevice.invoke().also {
+      logger.i { "Is Firebase available on this device -> $it" }
     }
 
   override fun onPushDeviceGeneratorSelected() {
     FirebaseMessagingDelegate.fallbackProviderName = providerName
   }
 
-  override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
+  override suspend fun generatePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
     logger.i { "Getting Firebase token" }
-    firebaseMessaging.token.addOnCompleteListener {
-      if (it.isSuccessful) {
-        logger.i { "Firebase returned token successfully" }
-        onPushDeviceGenerated(
-          PushDevice(
-            token = it.result,
-            pushProvider = PushProvider.FIREBASE,
-            providerName = providerName
-          )
+    try {
+      val token = firebaseMessaging.getToken()
+      logger.i { "Firebase returned token successfully" }
+      onPushDeviceGenerated(
+        PushDevice(
+          token = token,
+          pushProvider = PushProvider.FIREBASE,
+          providerName = providerName
         )
-      } else {
-        logger.i { "Error: Firebase didn't returned token" }
-      }
+      )
+    } catch (e: Exception) {
+      logger.i { "Error: Firebase didn't returned token, $e" }
     }
   }
 }
