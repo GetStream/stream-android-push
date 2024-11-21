@@ -1,0 +1,64 @@
+public abstract class io/getstream/android/push/permissions/ActivityLifecycleCallbacks : android/app/Application$ActivityLifecycleCallbacks {
+	public fun <init> ()V
+	public fun onActivityCreated (Landroid/app/Activity;Landroid/os/Bundle;)V
+	public fun onActivityDestroyed (Landroid/app/Activity;)V
+	public fun onActivityPaused (Landroid/app/Activity;)V
+	public fun onActivityResumed (Landroid/app/Activity;)V
+	public fun onActivitySaveInstanceState (Landroid/app/Activity;Landroid/os/Bundle;)V
+	public fun onActivityStarted (Landroid/app/Activity;)V
+	public fun onActivityStopped (Landroid/app/Activity;)V
+	public fun onFirstActivityStarted (Landroid/app/Activity;)V
+	public fun onLastActivityStopped (Landroid/app/Activity;)V
+}
+
+public final class io/getstream/android/push/permissions/DefaultNotificationPermissionHandler : io/getstream/android/push/permissions/ActivityLifecycleCallbacks, io/getstream/android/push/permissions/NotificationPermissionHandler {
+	public static final field Companion Lio/getstream/android/push/permissions/DefaultNotificationPermissionHandler$Companion;
+	public fun onActivityStarted (Landroid/app/Activity;)V
+	public fun onLastActivityStopped (Landroid/app/Activity;)V
+	public fun onPermissionDenied ()V
+	public fun onPermissionGranted ()V
+	public fun onPermissionRationale ()V
+	public fun onPermissionRequested ()V
+}
+
+public final class io/getstream/android/push/permissions/DefaultNotificationPermissionHandler$Companion {
+	public final fun createDefaultNotificationPermissionHandler (Landroid/app/Application;)Lio/getstream/android/push/permissions/DefaultNotificationPermissionHandler;
+}
+
+public abstract interface class io/getstream/android/push/permissions/NotificationPermissionHandler {
+	public abstract fun onPermissionDenied ()V
+	public abstract fun onPermissionGranted ()V
+	public abstract fun onPermissionRationale ()V
+	public abstract fun onPermissionRequested ()V
+}
+
+public final class io/getstream/android/push/permissions/NotificationPermissionManager : io/getstream/android/push/permissions/PushNotificationPermissionRequester$PushNotificationPermissionCallback {
+	public static final field Companion Lio/getstream/android/push/permissions/NotificationPermissionManager$Companion;
+	public synthetic fun <init> (Lio/getstream/android/push/permissions/PushNotificationPermissionRequester;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun onAppLaunched ()V
+	public fun onPermissionStatusChanged (Lio/getstream/android/push/permissions/NotificationPermissionStatus;)V
+	public final fun start ()V
+	public final fun stop ()V
+}
+
+public final class io/getstream/android/push/permissions/NotificationPermissionManager$Companion {
+	public final fun createNotificationPermissionsManager (Landroid/app/Application;Lkotlin/jvm/functions/Function0;Lkotlin/jvm/functions/Function1;)Lio/getstream/android/push/permissions/NotificationPermissionManager;
+}
+
+public final class io/getstream/android/push/permissions/NotificationPermissionStatus : java/lang/Enum {
+	public static final field DENIED Lio/getstream/android/push/permissions/NotificationPermissionStatus;
+	public static final field GRANTED Lio/getstream/android/push/permissions/NotificationPermissionStatus;
+	public static final field RATIONALE_NEEDED Lio/getstream/android/push/permissions/NotificationPermissionStatus;
+	public static final field REQUESTED Lio/getstream/android/push/permissions/NotificationPermissionStatus;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
+	public static fun valueOf (Ljava/lang/String;)Lio/getstream/android/push/permissions/NotificationPermissionStatus;
+	public static fun values ()[Lio/getstream/android/push/permissions/NotificationPermissionStatus;
+}
+
+public final class io/getstream/android/push/permissions/PushPermissionsInitializer : androidx/startup/Initializer {
+	public fun <init> ()V
+	public synthetic fun create (Landroid/content/Context;)Ljava/lang/Object;
+	public fun create (Landroid/content/Context;)V
+	public fun dependencies ()Ljava/util/List;
+}
+
