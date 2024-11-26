@@ -42,10 +42,6 @@ kotlin {
     androidTarget { publishLibraryVariants("release") }
     jvm()
 
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
     @Suppress("OPT_IN_USAGE")
     applyHierarchyTemplate {
         common {
