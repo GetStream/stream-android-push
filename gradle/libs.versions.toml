@@ -1,0 +1,85 @@
+[versions]
+activityKtx = "1.8.0"
+firebaseMessaging = "2.1.0"
+firebaseMessagingVersion = "23.3.1"
+kotlinxCoroutinesCore = "1.9.0"
+startupRuntime = "1.1.1"
+streamLog = "1.3.1"
+androidGradlePlugin = "8.6.1"
+androidxActivity = "1.4.0"
+androidxAppCompat = "1.7.0"
+androidxMaterial = "1.12.0"
+androidxAnnotation = "1.9.1"
+androidxCore = "1.15.0"
+androidxLifecycle = "2.8.7"
+androidxNavigation = "2.5.0"
+androidxTest = "1.6.1"
+androidxJunit = "1.2.1"
+kotlin = "2.0.20"
+atomicfu = "0.25.0"
+dokka = "1.9.0"
+kluent = "1.73"
+kotlinxCoroutines = "1.9.0"
+kotlinxSerialization = "1.7.3"
+ksp = "2.0.21-1.0.26"
+okhttp = "4.12.0"
+retrofit = "2.11.0"
+moshi="1.15.1"
+spotless = "6.7.0"
+nexusPlugin = "0.29.0"
+compatibilityValidator = "0.16.3"
+androidxMacroBenchmark = "1.3.1"
+androidxProfileinstaller = "1.4.0"
+androidxUiAutomator = "2.3.0"
+junit5 = "1.11.0.0"
+mockito = "5.13.0"
+mockitoKotlin = "4.1.0"
+
+[libraries]
+androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
+androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
+firebase-messaging = { module = "dev.gitlive:firebase-messaging", version.ref = "firebaseMessaging" }
+google-firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessagingVersion" }
+stream-log = { group = "io.getstream", name = "stream-log", version.ref = "streamLog" }
+androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "androidxAppCompat" }
+androidx-annotation = { group = "androidx.annotation", name = "annotation", version.ref = "androidxAnnotation" }
+androidx-material = { module = "com.google.android.material:material", version.ref = "androidxMaterial" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
+androidx-viewmodel-ktx = { group = "androidx.lifecycle", name = "lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
+androidx-profileinstaller = { group = "androidx.profileinstaller", name = "profileinstaller", version.ref = "androidxProfileinstaller" }
+androidx-benchmark-macro = { group = "androidx.benchmark", name = "benchmark-macro-junit4", version.ref = "androidxMacroBenchmark" }
+androidx-test-runner = { group = "androidx.test", name = "runner", version.ref = "androidxTest" }
+androidx-test-rules = { group = "androidx.test", name = "rules", version.ref = "androidxTest" }
+androidx-test-junit = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "androidxJunit" }
+androidx-test-uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "androidxUiAutomator" }
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerialization" }
+okhttp = { group = "com.squareup.okhttp3", name = "okhttp", version.ref = "okhttp" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttp" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit" }
+retrofit-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+testing-kluent = { group = "org.amshove.kluent", name = "kluent", version.ref = "kluent" }
+testing-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlinxCoroutines" }
+testing-mockito = { group = "org.mockito", name = "mockito-core", version.ref = "mockito" }
+testing-mockito-kotlin = { group = "org.mockito.kotlin", name = "mockito-kotlin", version.ref = "mockitoKotlin" }
+
+moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
+moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+
+# Dependencies of the included build-logic
+android-gradlePlugin = { group = "com.android.tools.build", name = "gradle", version.ref = "androidGradlePlugin" }
+kotlin-gradlePlugin = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin" }
+spotless-gradlePlugin = { group = "com.diffplug.spotless", name = "spotless-plugin-gradle", version.ref = "spotless" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+android-library = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
+nexus-plugin = { id = "com.vanniktech.maven.publish", version.ref = "nexusPlugin" }
+kotlinBinaryCompatibilityValidator = { id = "org.jetbrains.kotlinx.binary-compatibility-validator", version.ref = "compatibilityValidator" }
+kotlin-atomicfu = { id = "org.jetbrains.kotlinx.atomicfu", version.ref = "atomicfu" }

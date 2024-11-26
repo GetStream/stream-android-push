@@ -1,0 +1,18 @@
+public abstract class io/getstream/android/push/delegate/PushDelegate {
+	public fun <init> ()V
+	public abstract fun handlePushMessage (Ljava/util/Map;Ljava/util/Map;)Z
+	public abstract fun registerPushDevice (Lio/getstream/android/push/PushDevice;)V
+}
+
+public abstract interface class io/getstream/android/push/delegate/PushDelegateProvider {
+	public static final field Companion Lio/getstream/android/push/delegate/PushDelegateProvider$Companion;
+	public static final field METADATA_VALUE Ljava/lang/String;
+}
+
+public final class io/getstream/android/push/delegate/PushDelegateProvider$Companion {
+	public static final field METADATA_VALUE Ljava/lang/String;
+	public final fun getDelegates ()Ljava/util/List;
+	public final fun isInitialized ()Z
+	public final fun setInitialized (Z)V
+}
+
