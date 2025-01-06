@@ -59,7 +59,7 @@ public object XiaomiMessagingDelegate {
       }
     }
       .also { handled ->
-        if (!handled) logger.d { "[handleRemoteMessage] message was not handled by any Push Delete" }
+        if (!handled) logger.d { "[handleRemoteMessage] message was not handled by any Push Delegate" }
       }
   }
 
