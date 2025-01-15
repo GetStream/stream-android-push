@@ -14,10 +14,6 @@ public final class io/getstream/android/push/firebase/FirebasePushDeviceGenerato
 	public fun onPushDeviceGeneratorSelected ()V
 }
 
-public final class io/getstream/android/push/firebase/RemoteMessageMappingKt {
-	public static final fun toStreamRemoteMessage (Lcom/google/firebase/messaging/RemoteMessage;)Lio/getstream/android/push/firebase/StreamRemoteMessage;
-}
-
 public final class io/getstream/android/push/firebase/StreamRemoteMessage {
 	public fun <init> (Ljava/util/Map;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;JIII)V
 	public final fun component1 ()Ljava/util/Map;
