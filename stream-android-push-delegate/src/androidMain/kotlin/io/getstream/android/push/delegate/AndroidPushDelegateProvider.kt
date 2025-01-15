@@ -66,7 +66,7 @@ public class AndroidPushDelegateProvider : PushDelegateProvider, ContentProvider
   private fun String.toPushDelegate(): PushDelegate? =
     try {
       Class.forName(this)
-        .takeIf { AndroidPushDelegateProvider::class.java.isAssignableFrom(it) }
+        .takeIf { PushDelegate::class.java.isAssignableFrom(it) }
         ?.getDeclaredConstructor()
         ?.newInstance() as? PushDelegate
     } catch (e: ClassNotFoundException) {
