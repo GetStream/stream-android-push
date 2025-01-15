@@ -47,19 +47,3 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
     }
   }
 }
-
-private fun RemoteMessage.toStreamRemoteMessage(): StreamRemoteMessage {
-  return StreamRemoteMessage(
-    data = data,
-    senderId = senderId,
-    from = from,
-    to = to,
-    messageType = messageType,
-    messageId = messageId,
-    collapseKey = collapseKey,
-    sentTime = sentTime,
-    ttl = ttl,
-    priority = priority,
-    originalPriority = originalPriority
-  )
-}
