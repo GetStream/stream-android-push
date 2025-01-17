@@ -11,9 +11,9 @@ public final class io/getstream/android/push/xiaomi/XiaomiMessagingDelegate {
 }
 
 public final class io/getstream/android/push/xiaomi/XiaomiPushDeviceGenerator : io/getstream/android/push/PushDeviceGenerator {
-	public fun <init> (Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/xiaomi/channel/commonutils/android/Region;Lkotlin/jvm/functions/Function0;)V
-	public synthetic fun <init> (Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/xiaomi/channel/commonutils/android/Region;Lkotlin/jvm/functions/Function0;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
-	public fun generatePushDevice (Lkotlin/jvm/functions/Function1;Lkotlin/coroutines/Continuation;)Ljava/lang/Object;
+	public fun <init> (Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/xiaomi/channel/commonutils/android/Region;)V
+	public synthetic fun <init> (Landroid/content/Context;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Lcom/xiaomi/channel/commonutils/android/Region;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
+	public fun asyncGeneratePushDevice (Lkotlin/jvm/functions/Function1;)V
 	public fun isValidForThisDevice ()Z
 	public fun onPushDeviceGeneratorSelected ()V
 }

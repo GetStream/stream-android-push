@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
+ * Copyright (c) 2014-2025 Stream.io Inc. All rights reserved.
  *
  * Licensed under the Stream License;
  * you may not use this file except in compliance with the License.
@@ -25,7 +25,7 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
   override fun onMessageReceived(remoteMessage: RemoteMessage) {
     logger.d { "[onFirebaseMessageReceived] remoteMessage: $remoteMessage" }
     try {
-      FirebaseMessagingDelegate.handleRemoteMessage(remoteMessage.toStreamRemoteMessage())
+      FirebaseMessagingDelegate.handleRemoteMessage(remoteMessage)
         .also {
           when (it) {
             true -> logger.d { "[onFirebaseMessageReceived] message handled successfully" }
@@ -46,20 +46,4 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
       logger.e(exception) { "[onFirebaseNewToken] error while registering Firebase Token" }
     }
   }
-}
-
-private fun RemoteMessage.toStreamRemoteMessage(): StreamRemoteMessage {
-  return StreamRemoteMessage(
-    data = data,
-    senderId = senderId,
-    from = from,
-    to = to,
-    messageType = messageType,
-    messageId = messageId,
-    collapseKey = collapseKey,
-    sentTime = sentTime,
-    ttl = ttl,
-    priority = priority,
-    originalPriority = originalPriority
-  )
 }

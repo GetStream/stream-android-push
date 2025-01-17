@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
+ * Copyright (c) 2014-2025 Stream.io Inc. All rights reserved.
  *
  * Licensed under the Stream License;
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,8 @@ package io.getstream.android.push.huawei
 
 import android.content.Context
 import com.huawei.hms.aaid.HmsInstanceId
+import com.huawei.hms.api.ConnectionResult.SUCCESS
+import com.huawei.hms.api.HuaweiApiAvailability
 import io.getstream.android.push.PushDevice
 import io.getstream.android.push.PushDeviceGenerator
 import io.getstream.android.push.PushProvider
@@ -30,24 +32,23 @@ import kotlinx.coroutines.launch
  * Generator responsible for providing information needed to register Huawei push notifications provider
  */
 public class HuaweiPushDeviceGenerator(
-  context: Context,
+  private val context: Context,
   private val appId: String,
-  private val providerName: String,
-  private val isValidForThisDevice: () -> Boolean = { true }
+  private val providerName: String
 ) : PushDeviceGenerator {
   private val logger = StreamLog.getLogger("Push:Huawei")
   private val hmsInstanceId: HmsInstanceId = HmsInstanceId.getInstance(context)
 
   override fun isValidForThisDevice(): Boolean =
-    isValidForThisDevice.invoke().also {
-      logger.i { "Is Huawei available on this device -> $it" }
+    (HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(context) == SUCCESS).also {
+      logger.i { "Is Huawei available on on this device -> $it" }
     }
 
   override fun onPushDeviceGeneratorSelected() {
     HuaweiMessagingDelegate.fallbackProviderName = providerName
   }
 
-  override suspend fun generatePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
+  override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
     logger.i { "Getting Huawei token" }
 
     @OptIn(DelicateCoroutinesApi::class)

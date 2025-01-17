@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
+ * Copyright (c) 2014-2025 Stream.io Inc. All rights reserved.
  *
  * Licensed under the Stream License;
  * you may not use this file except in compliance with the License.
@@ -37,23 +37,19 @@ public class XiaomiPushDeviceGenerator(
   private val appId: String,
   private val appKey: String,
   private val providerName: String,
-  private val region: Region = Region.Global,
-  private val isValidForThisDevice: () -> Boolean = { true }
+  private val region: Region = Region.Global
 ) : PushDeviceGenerator {
   private val logger = StreamLog.getLogger("Push:Xiaomi")
   private val appContext = context.applicationContext
   private var isAlreadyRegistered = AtomicBoolean(false)
 
-  override fun isValidForThisDevice(): Boolean =
-    isValidForThisDevice.invoke().also {
-      logger.i { "Is Firebase available on this device -> $it" }
-    }
+  override fun isValidForThisDevice(): Boolean = true
 
   override fun onPushDeviceGeneratorSelected() {
     XiaomiMessagingDelegate.fallbackProviderName = providerName
   }
 
-  override suspend fun generatePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
+  override fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit) {
     logger.i { "Getting Xiaomi token" }
     if (isAlreadyRegistered.compareAndSet(false, true)) {
       MiPushClient.setRegion(region)

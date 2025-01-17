@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2014-2022 Stream.io Inc. All rights reserved.
+ * Copyright (c) 2014-2025 Stream.io Inc. All rights reserved.
  *
  * Licensed under the Stream License;
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,8 @@ public interface PushDeviceGenerator {
 
   /**
    * Asynchronously generates a [PushDevice] and calls [onPushDeviceGenerated] callback once it's ready
+   *
+   * @param onPushDeviceGenerated Callback that will be called once the [PushDevice] is generated
    */
-  public suspend fun generatePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit)
+  public fun asyncGeneratePushDevice(onPushDeviceGenerated: (pushDevice: PushDevice) -> Unit)
 }
