@@ -81,8 +81,6 @@ kotlin {
             dependencies {
                 api(project(":stream-android-push"))
                 implementation(project(":stream-android-push-delegate"))
-
-                api(libs.firebase.messaging)
                 implementation(libs.kotlinx.coroutines)
                 implementation(libs.stream.log)
             }
