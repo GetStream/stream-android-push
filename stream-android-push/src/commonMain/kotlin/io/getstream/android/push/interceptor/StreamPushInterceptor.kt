@@ -16,5 +16,5 @@
 package io.getstream.android.push.interceptor
 
 public object StreamPushInterceptor {
-  public var pushInterceptor: PushEventInterceptor? = null
+  public var interceptor: PushEventInterceptor? = null
 }

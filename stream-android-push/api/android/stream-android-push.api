@@ -42,7 +42,7 @@ public abstract interface class io/getstream/android/push/interceptor/PushEventI
 
 public final class io/getstream/android/push/interceptor/StreamPushInterceptor {
 	public static final field INSTANCE Lio/getstream/android/push/interceptor/StreamPushInterceptor;
-	public final fun getPushInterceptor ()Lio/getstream/android/push/interceptor/PushEventInterceptor;
-	public final fun setPushInterceptor (Lio/getstream/android/push/interceptor/PushEventInterceptor;)V
+	public final fun getInterceptor ()Lio/getstream/android/push/interceptor/PushEventInterceptor;
+	public final fun setInterceptor (Lio/getstream/android/push/interceptor/PushEventInterceptor;)V
 }
 
