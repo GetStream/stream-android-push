@@ -19,6 +19,8 @@ import android.content.Context
 import com.xiaomi.mipush.sdk.MiPushCommandMessage
 import com.xiaomi.mipush.sdk.MiPushMessage
 import com.xiaomi.mipush.sdk.PushMessageReceiver
+import io.getstream.android.push.PushProvider
+import io.getstream.android.push.interceptor.PushEventInterceptor
 import io.getstream.log.StreamLog
 
 /**
@@ -26,6 +28,7 @@ import io.getstream.log.StreamLog
  */
 public class ChatXiaomiMessagingReceiver : PushMessageReceiver() {
   private val logger = StreamLog.getLogger("Push:Xiaomi")
+  private var interceptor: PushEventInterceptor? = null
 
   /**
    * This method is called when a push notification is received from Xiaomi Servers.
@@ -39,6 +42,11 @@ public class ChatXiaomiMessagingReceiver : PushMessageReceiver() {
   ) {
     logger.i { "[onReceiveXiaomiPassThroughMessage] miPushMessage: $miPushMessage" }
     try {
+      if (interceptor != null) {
+        if (interceptor?.preOnRemoteMessage(PushProvider.XIAOMI) == false) {
+          return
+        }
+      }
       XiaomiMessagingDelegate.handleMiPushMessage(miPushMessage)
         .also {
           when (it) {
@@ -63,6 +71,11 @@ public class ChatXiaomiMessagingReceiver : PushMessageReceiver() {
   ) {
     logger.d { "[onReceiveXiaomiRegisterResult] miPushCommandMessage: $miPushCommandMessage" }
     try {
+      if (interceptor != null) {
+        if (interceptor?.preOnNewToken(PushProvider.XIAOMI) == false) {
+          return
+        }
+      }
       XiaomiMessagingDelegate.registerXiaomiToken(miPushCommandMessage, "")
     } catch (exception: IllegalStateException) {
       logger.e(exception) { "[onReceiveRegisterResult] error while registering Xiaomi Token" }
