@@ -23,7 +23,7 @@ ksp = "2.0.21-1.0.26"
 # Moshi
 moshi = "1.15.1"
 # Nexus Publish Plugin
-nexusPlugin = "0.29.0"
+nexusPlugin = "0.34.0"
 # Spotless
 spotless = "6.7.0"
 # Stream
