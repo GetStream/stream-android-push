@@ -1,28 +1,41 @@
 [versions]
-activityKtx = "1.8.0"
-firebaseMessagingVersion = "23.3.1"
-startupRuntime = "1.1.1"
-streamLog = "1.3.1"
+# AGP
 androidGradlePlugin = "8.6.1"
-androidxMaterial = "1.12.0"
-androidxCore = "1.15.0"
-kotlin = "2.0.20"
+# AndroidX
+activityKtx = "1.8.0"
+coreKtx = "1.15.0"
+material = "1.12.0"
+startupRuntime = "1.1.1"
+# Atomicfu
 atomicfu = "0.25.0"
+# Coroutines
+coroutines = "1.9.0"
+# Firebase
+firebaseMessaging = "23.3.1"
+# Dokka
 dokka = "1.9.0"
-kotlinxCoroutines = "1.9.0"
-ksp = "2.0.21-1.0.26"
-moshi="1.15.1"
-spotless = "6.7.0"
-nexusPlugin = "0.29.0"
+# Kotlin
+kotlin = "2.0.20"
+# Kotlin Binary Compatibility Validator
 compatibilityValidator = "0.16.3"
+# KSP
+ksp = "2.0.21-1.0.26"
+# Moshi
+moshi = "1.15.1"
+# Nexus Publish Plugin
+nexusPlugin = "0.29.0"
+# Spotless
+spotless = "6.7.0"
+# Stream
+streamLog = "1.3.1"
 
 [libraries]
 androidx-activity-ktx = { module = "androidx.activity:activity-ktx", version.ref = "activityKtx" }
-androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "androidxCore" }
-androidx-material = { module = "com.google.android.material:material", version.ref = "androidxMaterial" }
+androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-material = { module = "com.google.android.material:material", version.ref = "material" }
 androidx-startup-runtime = { module = "androidx.startup:startup-runtime", version.ref = "startupRuntime" }
-google-firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessagingVersion" }
-kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+google-firebase-messaging = { module = "com.google.firebase:firebase-messaging", version.ref = "firebaseMessaging" }
+kotlinx-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
 moshi = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
 stream-log = { group = "io.getstream", name = "stream-log", version.ref = "streamLog" }
 
