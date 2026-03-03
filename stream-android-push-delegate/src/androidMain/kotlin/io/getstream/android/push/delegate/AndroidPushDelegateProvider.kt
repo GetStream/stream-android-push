@@ -26,12 +26,11 @@ import android.os.Bundle
 import io.getstream.android.push.delegate.PushDelegateProvider.Companion.METADATA_VALUE
 import io.getstream.android.push.delegate.PushDelegateProvider.Companion._delegates
 import io.getstream.android.push.delegate.PushDelegateProvider.Companion.isInitialized
-import io.getstream.log.StreamLog
-import io.getstream.log.TaggedLogger
+import io.getstream.log.taggedLogger
 
 public class AndroidPushDelegateProvider : PushDelegateProvider, ContentProvider() {
 
-  private val logger: TaggedLogger = StreamLog.getLogger("Push:Delegate")
+  private val logger by taggedLogger("Push:Delegate")
 
   override fun onCreate(): Boolean {
     initializeDelegates()
