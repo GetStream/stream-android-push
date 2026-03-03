@@ -35,3 +35,14 @@ public final class io/getstream/android/push/PushProvider$Companion {
 	public final fun fromKey (Ljava/lang/String;)Lio/getstream/android/push/PushProvider;
 }
 
+public abstract interface class io/getstream/android/push/interceptor/PushEventInterceptor {
+	public abstract fun preOnNewToken (Lio/getstream/android/push/PushProvider;)Z
+	public abstract fun preOnRemoteMessage (Lio/getstream/android/push/PushProvider;)Z
+}
+
+public final class io/getstream/android/push/interceptor/StreamPushInterceptor {
+	public static final field INSTANCE Lio/getstream/android/push/interceptor/StreamPushInterceptor;
+	public final fun getInterceptor ()Lio/getstream/android/push/interceptor/PushEventInterceptor;
+	public final fun setInterceptor (Lio/getstream/android/push/interceptor/PushEventInterceptor;)V
+}
+

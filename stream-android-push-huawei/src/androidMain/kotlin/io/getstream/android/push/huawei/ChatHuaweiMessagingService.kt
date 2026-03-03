@@ -17,14 +17,23 @@ package io.getstream.android.push.huawei
 
 import com.huawei.hms.push.HmsMessageService
 import com.huawei.hms.push.RemoteMessage
+import io.getstream.android.push.PushProvider
+import io.getstream.android.push.interceptor.PushEventInterceptor
+import io.getstream.android.push.interceptor.StreamPushInterceptor
 import io.getstream.log.StreamLog
 
 internal class ChatHuaweiMessagingService : HmsMessageService() {
   private val logger = StreamLog.getLogger("Push:Huawei")
+  private var interceptor: PushEventInterceptor? = null
 
   override fun onMessageReceived(remoteMessage: RemoteMessage) {
     logger.d { "[onHuaweiMessageReceived] remoteMessage: $remoteMessage" }
     try {
+      if (StreamPushInterceptor.interceptor != null) {
+        if (StreamPushInterceptor.interceptor?.preOnRemoteMessage(PushProvider.HUAWEI) == false) {
+          return
+        }
+      }
       HuaweiMessagingDelegate.handleRemoteMessage(remoteMessage)
         .also {
           when (it) {
@@ -41,6 +50,12 @@ internal class ChatHuaweiMessagingService : HmsMessageService() {
 
   override fun onNewToken(token: String) {
     try {
+      if (StreamPushInterceptor.interceptor != null) {
+        if (StreamPushInterceptor.interceptor?.preOnNewToken(PushProvider.HUAWEI) == false) {
+          return
+        }
+      }
+
       HuaweiMessagingDelegate.registerHuaweiToken(token, "")
     } catch (exception: IllegalStateException) {
       logger.e(exception) { "[onHuaweiNewToken] error while registering Huawei Token" }

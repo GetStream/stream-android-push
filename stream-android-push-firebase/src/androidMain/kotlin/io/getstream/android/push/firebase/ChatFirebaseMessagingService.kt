@@ -17,6 +17,8 @@ package io.getstream.android.push.firebase
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import io.getstream.android.push.PushProvider
+import io.getstream.android.push.interceptor.StreamPushInterceptor
 import io.getstream.log.StreamLog
 
 internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
@@ -25,6 +27,12 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
   override fun onMessageReceived(remoteMessage: RemoteMessage) {
     logger.d { "[onFirebaseMessageReceived] remoteMessage: $remoteMessage" }
     try {
+      if (StreamPushInterceptor.interceptor != null) {
+        if (StreamPushInterceptor.interceptor?.preOnRemoteMessage(PushProvider.FIREBASE) == false) {
+          return
+        }
+      }
+
       FirebaseMessagingDelegate.handleRemoteMessage(remoteMessage)
         .also {
           when (it) {
@@ -41,6 +49,12 @@ internal class ChatFirebaseMessagingService : FirebaseMessagingService() {
 
   override fun onNewToken(token: String) {
     try {
+      if (StreamPushInterceptor.interceptor != null) {
+        if (StreamPushInterceptor.interceptor?.preOnNewToken(PushProvider.FIREBASE) == false) {
+          return
+        }
+      }
+
       FirebaseMessagingDelegate.registerFirebaseToken(token, "")
     } catch (exception: IllegalStateException) {
       logger.e(exception) { "[onFirebaseNewToken] error while registering Firebase Token" }
