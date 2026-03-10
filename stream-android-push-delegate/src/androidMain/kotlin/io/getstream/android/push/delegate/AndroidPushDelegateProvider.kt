@@ -23,14 +23,14 @@ import android.content.pm.PackageManager
 import android.database.Cursor
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import io.getstream.android.push.delegate.PushDelegateProvider.Companion.METADATA_VALUE
 import io.getstream.android.push.delegate.PushDelegateProvider.Companion._delegates
 import io.getstream.android.push.delegate.PushDelegateProvider.Companion.isInitialized
-import io.getstream.log.taggedLogger
 
 public class AndroidPushDelegateProvider : PushDelegateProvider, ContentProvider() {
 
-  private val logger by taggedLogger("Push:Delegate")
+  private val TAG = "Push:Delegate"
 
   override fun onCreate(): Boolean {
     initializeDelegates()
@@ -69,13 +69,12 @@ public class AndroidPushDelegateProvider : PushDelegateProvider, ContentProvider
         ?.getDeclaredConstructor()
         ?.newInstance() as? PushDelegate
     } catch (e: ClassNotFoundException) {
-      logger.e(e) { "PushDelegate not created for '$this'" }
+      Log.e(TAG, "PushDelegate not created for '$this'", e)
       null
     } catch (e: NoSuchMethodException) {
-      logger.e(e) { "PushDelegate not created for '$this'" }
+      Log.e(TAG, "PushDelegate not created for '$this'", e)
       null
     }
-      .also { logger.d { "PushDelegate created for '$this' ($it)" } }
 
   override fun query(
     uri: Uri,

@@ -22,6 +22,7 @@ import android.app.Application
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.ComponentActivity
@@ -29,20 +30,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import io.getstream.log.taggedLogger
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 internal class PushNotificationPermissionRequester private constructor() : ActivityLifecycleCallbacks() {
-  private val logger by taggedLogger("Push:CurrentActivityProvider")
+  private val TAG = "PnPermissionRequester"
   private val pushNotificationPermissionCallbacks = mutableListOf<PushNotificationPermissionCallback>()
   private var currentActivity: Activity? = null
   private val permissionContract = ActivityResultContracts.RequestPermission()
   private val uiScope by lazy { CoroutineScope(Dispatchers.Main) }
 
   fun addCallback(callback: PushNotificationPermissionCallback) {
-    logger.d { "[addCallback] callback: $callback" }
     pushNotificationPermissionCallbacks.add(callback)
   }
 
@@ -50,97 +49,94 @@ internal class PushNotificationPermissionRequester private constructor() : Activ
     activity: Activity,
     bunlde: Bundle?
   ) {
-    logger.v { "[onActivityCreated] activity: $activity" }
+    Log.v(TAG, "[onActivityCreated] activity: $activity")
     super.onActivityCreated(activity, bunlde)
     currentActivity = activity
   }
 
   override fun onActivityStarted(activity: Activity) {
-    logger.v { "[onActivityStarted] activity: $activity" }
+    Log.v(TAG, "[onActivityStarted] activity: $activity")
     currentActivity = activity
     activity.registerPermissionCallback()
     super.onActivityStarted(activity)
   }
 
   override fun onActivityResumed(activity: Activity) {
-    logger.v { "[onActivityResumed] activity: $activity" }
+    Log.v(TAG, "[onActivityResumed] activity: $activity")
     currentActivity = activity
     super.onActivityResumed(activity)
   }
 
   override fun onActivityStopped(activity: Activity) {
-    logger.v { "[onActivityStopped] activity: $activity" }
+    Log.v(TAG, "[onActivityStopped] activity: $activity")
     activity.unregisterPermissionCallback()
     super.onActivityStopped(activity)
   }
 
   override fun onFirstActivityStarted(activity: Activity) {
-    logger.i { "[onFirstActivityStarted] activity: $activity" }
+    Log.i(TAG, "[onFirstActivityStarted] activity: $activity")
     super.onFirstActivityStarted(activity)
     pushNotificationPermissionCallbacks.forEach { it.onAppLaunched() }
   }
 
   override fun onLastActivityStopped(activity: Activity) {
-    logger.i { "[onLastActivityStopped] activity: $activity" }
+    Log.i(TAG, "[onLastActivityStopped] activity: $activity")
     super.onLastActivityStopped(activity)
     currentActivity = null
   }
 
   internal fun requestPermission() {
-    logger.d { "[requestPermission]" }
     uiScope.launch { currentActivity?.requestPermission() }
   }
 
   internal fun onPermissionStatus(permissionStatus: NotificationPermissionStatus) {
-    logger.d { "[onPermissionStatus] permissionStatus: $permissionStatus" }
+    Log.v(TAG, "[onPermissionStatus] permissionStatus: $permissionStatus")
     pushNotificationPermissionCallbacks.forEach { it.onPermissionStatusChanged(permissionStatus) }
   }
 
   private fun Activity.registerPermissionCallback() {
     if (this !is ComponentActivity) return
     if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) return
-    logger.i { "[registerPermissionCallback] activity: ${this::class.simpleName}" }
+    Log.i(TAG, "[registerPermissionCallback] activity: ${this::class.simpleName}")
     val launcher =
       registerForActivityResult(permissionContract) { isGranted: Boolean ->
-        logger.v { "[registerPermissionCallback] completed: $isGranted" }
         when (isGranted) {
           true -> onPermissionStatus(NotificationPermissionStatus.GRANTED)
           else -> onPermissionStatus(NotificationPermissionStatus.DENIED)
         }
       }
-    logger.v { "[registerPermissionCallback] launcher: $launcher" }
+    Log.v(TAG, "[registerPermissionCallback] launcher: $launcher")
     putActivityResultLauncher(launcher)
   }
 
   private fun Activity.unregisterPermissionCallback() {
     if (this !is ComponentActivity) return
-    logger.i { "[unregisterPermissionCallback] activity: ${this::class.simpleName}" }
+    Log.i(TAG, "[unregisterPermissionCallback] activity: ${this::class.simpleName}")
     val launcher = getActivityResultLauncher()
-    logger.v { "[unregisterPermissionCallback] found launcher: $launcher" }
+    Log.d(TAG, "[unregisterPermissionCallback] found launcher: $launcher")
     launcher?.unregister()
   }
 
   private fun Activity.requestPermission() {
-    logger.d { "[requestPermission] no args" }
     when {
       Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU -> {
-        logger.w { "[requestPermission] not supported on this version" }
+        Log.w(TAG, "[requestPermission] not supported on this version")
         onPermissionStatus(NotificationPermissionStatus.GRANTED)
       }
       ContextCompat.checkSelfPermission(
         this,
         Manifest.permission.POST_NOTIFICATIONS
       ) == PackageManager.PERMISSION_GRANTED -> {
-        logger.v { "[requestPermission] already granted" }
+        Log.v(TAG, "[requestPermission] already granted")
         onPermissionStatus(NotificationPermissionStatus.GRANTED)
       }
       ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.POST_NOTIFICATIONS) -> {
-        logger.i { "[requestPermission] rationale requested" }
+        Log.i(TAG, "[requestPermission] rationale requested")
         onPermissionStatus(NotificationPermissionStatus.RATIONALE_NEEDED)
       }
       else -> {
         val launcher = (this as? ComponentActivity)?.getActivityResultLauncher()
-        logger.i { "[requestPermission] launcher: $launcher" }
+        Log.i(TAG, "[requestPermission] launcher: $launcher")
         launcher?.launch(Manifest.permission.POST_NOTIFICATIONS)
         onPermissionStatus(NotificationPermissionStatus.REQUESTED)
       }
