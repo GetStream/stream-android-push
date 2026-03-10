@@ -16,33 +16,33 @@
 package io.getstream.android.push.permissions
 
 import android.app.Application
-import io.getstream.log.taggedLogger
+import android.util.Log
 
 public class NotificationPermissionManager private constructor(
   private val pushNotificationPermissionRequester: PushNotificationPermissionRequester,
   private val requestPermissionOnAppLaunch: () -> Boolean,
   private val onPermissionStatus: (NotificationPermissionStatus) -> Unit
 ) : PushNotificationPermissionRequester.PushNotificationPermissionCallback {
-  private val logger by taggedLogger("Push:Notifications-PM")
+  private val TAG = "Push:Notifications-PM"
   private var started = false
 
   private fun initialize() {
-    logger.d { "[initialize] no args" }
+    Log.d(TAG, "[initialize] no args")
     pushNotificationPermissionRequester.addCallback(this)
   }
 
   public fun start() {
-    logger.d { "[start] no args" }
+    Log.d(TAG, "[start] no args")
     requestPermission()
   }
 
   public fun stop() {
-    logger.d { "[stop] no args" }
+    Log.d(TAG, "[stop] no args")
     started = false
   }
 
   override fun onAppLaunched() {
-    logger.d { "[onAppLaunched] no args" }
+    Log.d(TAG, "[onAppLaunched] no args")
     if (requestPermissionOnAppLaunch()) {
       requestPermission()
     }
