@@ -6,7 +6,7 @@ android {
     defaultConfig {
         minSdk Configuration.minSdk
         targetSdk Configuration.targetSdk
-        versionName Configuration.versionName
+        versionName project.version.toString()
     }
 
     compileOptions {

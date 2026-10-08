@@ -29,7 +29,7 @@ mavenPublishing {
     coordinates(
         Configuration.artifactGroup,
         artifactId,
-        Configuration.versionName
+        version.toString()
     )
 
     pom {
