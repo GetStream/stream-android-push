@@ -13,6 +13,40 @@ plugins {
     alias(libs.plugins.kotlinBinaryCompatibilityValidator)
 }
 
+// Where to publish: "streamRepo", "central", or both, comma-separated. The release workflow
+// always passes it; with nothing passed this stays on Central so a local build behaves as before.
+// streamRepo stages a Maven-2 tree under build/staged-repo for a separate upload job.
+val publishTargets = providers.gradleProperty("streamPublishTargets")
+    .getOrElse("central")
+    .split(",")
+    .map(String::trim)
+    .filter(String::isNotEmpty)
+    .toSet()
+
+require(publishTargets.isNotEmpty() && (publishTargets - setOf("central", "streamRepo")).isEmpty()) {
+    "'streamPublishTargets' must be a comma-separated subset of central, streamRepo but was '$publishTargets'"
+}
+
+subprojects {
+    plugins.withId(rootProject.libs.plugins.nexus.plugin.get().pluginId) {
+        if ("central" in publishTargets) {
+            extensions.configure<com.vanniktech.maven.publish.MavenPublishBaseExtension> {
+                publishToMavenCentral(automaticRelease = true)
+            }
+        }
+        if ("streamRepo" in publishTargets) {
+            extensions.configure<PublishingExtension> {
+                repositories {
+                    maven {
+                        name = "streamRepoStaging"
+                        url = rootProject.layout.buildDirectory.dir("staged-repo").get().asFile.toURI()
+                    }
+                }
+            }
+        }
+    }
+}
+
 apiValidation {
     ignoredProjects.addAll(listOf("app"))
     nonPublicMarkers.add("kotlin.PublishedApi")
