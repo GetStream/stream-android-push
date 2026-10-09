@@ -1,3 +1,17 @@
 # Stream Android Push
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.getstream/stream-android-push.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.getstream%22%20AND%20a:%22stream-android-push%22)
+[![Release](https://img.shields.io/github/v/release/GetStream/stream-android-push)](https://github.com/GetStream/stream-android-push/releases)
+
+Releases are published to the [Stream Maven repository](https://browse.stream-io-repo.com/releases/stream-android-push). Add it to your `settings.gradle.kts`:
+
+```kotlin
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+        maven("https://stream-io-repo.com")
+    }
+}
+```
+
+Earlier versions remain available from Maven Central.
